@@ -1,181 +1,113 @@
-<!-- study 2019/04/10
-    부트스트랩으로 꾸미기
-    컴포넌트는 네비만 사용
+<!-- homework 2019/04/10
 -->
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>INTRODUCTION</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- 합쳐지고 최소화된 최신 CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-    <!-- 부가적인 테마 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-    <!-- bootstrap customizing // bottstrap.css file에서 찾아서 붙여넣고 값 바꾸기-->
-    <style>
-        .table-hover > tbody > tr:hover {
-         background-color: yellow;
-        }
-    </style>
 </head>
-
 <body>
-    <div class="container">
-        <div class="row"> <!-- section으로 해도 동작함-->
-            <div class="col-md-6 col-xs-8">
-                <header>
-                    <h1>iam</h1>
-                </header>
-            </div>
+    <header>
+        <h1>iam</h1>
+    </header>
 
-            <div class="col-md-6 col-xs-4">
-                <!-- 상단 메뉴 바 -->
-                <nav>
-                    <ul>
-                        <li>who</li>
-                        <li>enable</li>
-                        <li>like</li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+    <!-- 상단 메뉴 바 -->
+    <nav>
+        <ul>
+            <li>who</li>
+            <li>enable</li>
+            <li>like</li>
+        </ul>
+    </nav>
 
-        <section class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <caption>류대석을 알아보자.</caption>
-                                <tr>
-                                    <th>no</th>
-                                    <th>subject</th>
-                                    <th>period</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>swim</td>
-                                    <td>1 year</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>weight training</td>
-                                    <td>6 months</td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td>total</td>
-                                    <td colspan="2">1.6 years</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
+    <!-- 사이드 메뉴 -->
+    <aside>
+        <ul>
+            <li>who
+                <ul>
+                    <li>name</li>
+                    <li>location</li>
+                </ul>
+            </li>
+            <li>career
+                <ul>
+                    <li>history</li>
+                    <li>current</li>
+                </ul>
+            <li>like
+                <ul>
+                    <li>health</li>
+                    <li>habby</li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- like 내용 -->
+    <article>
+        <h3>like</h3>
+        <section>
+            <h4>health</h4>
+            <table border=1>
+            <thead>
+                <caption></caption>
+                <tr>
+                    <th>no</th>
+                    <th>subject</th> 
+                    <th>period</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>swim</td> 
+                    <td>1 year</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>weight training</td> 
+                    <td>6 months</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>total</td>
+                    <td colspan="2">1.6 years</td>
+                </tr>
+            </tfoot>
+            </table>
         </section>
-        
-        <!-- 사이드 메뉴 -->
-        <aside>
-            <ul>
-                <li>who
-                    <ul>
-                        <li>name</li>
-                        <li>location</li>
-                    </ul>
-                </li>
-                <li>career
-                    <ul>
-                        <li>history</li>
-                        <li>current</li>
-                    </ul>
-                <li>like
-                    <ul>
-                        <li>health</li>
-                        <li>habby</li>
-                    </ul>
-                </li>
-            </ul>
-        </aside>
+        <section>
+            <h4>hobby</h4>
 
-        <!-- like 내용 -->
-        <article>
-            <h3>like</h3>
-            <section>
-                <h4>health</h4>
-                <table border=1>
-                    <thead>
-                        <caption></caption>
-                        <tr>
-                            <th>no</th>
-                            <th>subject</th>
-                            <th>period</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>swim</td>
-                            <td>1 year</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>weight training</td>
-                            <td>6 months</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td>total</td>
-                            <td colspan="2">1.6 years</td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </section>
-            <section>
-                <h4>hobby</h4>
+        </section>
+    </article>
 
-            </section>
-        </article>
-
-        <!-- career 내용 -->
-        <article>
-            <h3>career</h3>
-            <section>
-                <h4>history</h4>
-                <dl>
-                    <dt>sinsiway</dt>
-                    <dd>- i don't like</dd>
-                    <dd>- it's too bad</dd>
-                </dl>
-            </section>
-            <section>
-                <h4>current</h4>
-                <p>where is..</p>
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3166.0039844887447!2d127.1154640267726!3d37.48423234475208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca5f2389c67a9%3A0x88e59a0cd87c44e0!2zSCDruYTsp4Dri4jsiqQg7YyM7YGs!5e0!3m2!1sko!2skr!4v1554857015782!5m2!1sko!2skr"
-                    width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </section>
-        </article>
-        <footer>
-            <p>&#169;ryu</p>
-            <p>Posted by: Hege Refsnes</p>
-            <p>Contact information: <a href="mailto:someone@example.com">
-                    someone@example.com</a>.</p>
-        </footer>
-
-    </div>
-    <!-- jQuery CDN -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!-- career 내용 -->
+    <article>
+        <h3>career</h3>
+        <section>
+            <h4>history</h4>
+            <dl>
+                <dt>sinsiway</dt>
+                <dd>- i don't like</dd>
+                <dd>- it's too bad</dd>
+            </dl>
+        </section>
+        <section>
+            <h4>current</h4>
+            <p>where is..</p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3166.0039844887447!2d127.1154640267726!3d37.48423234475208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca5f2389c67a9%3A0x88e59a0cd87c44e0!2zSCDruYTsp4Dri4jsiqQg7YyM7YGs!5e0!3m2!1sko!2skr!4v1554857015782!5m2!1sko!2skr" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </section>
+    </article>
+    <footer>
+        <p>&#169;ryu</p>
+        <p>Posted by: Hege Refsnes</p>
+  <p>Contact information: <a href="mailto:someone@example.com">
+  someone@example.com</a>.</p>
+    </footer>
 </body>
-
 </html>
