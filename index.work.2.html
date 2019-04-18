@@ -1,10 +1,8 @@
-<!-- work 2019/04/10
-    부트스트랩으로 꾸미기
-    컴포넌트는 네비 사용
--->
+<!-- work 2019/04/10 부트스트랩으로 꾸미기 컴포넌트는 네비 사용 -->
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,154 +19,209 @@
         <h1>iam</h1>
     </header> -->
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-fixed-top">
-        <div class="container">
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-tabs">
-                    <li role="presentation" class="active"><a href="#">Home</a></li>
-                    <li role="presentation" ><a href="#about">About</a></li>
-                    <li role="presentation" ><a href="#work">Work</a></li>
-                    <li role="presentation" ><a href="#like">like</a></li>
-                </ul>
-            </div>
+    <nav class="navbar">
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#like">like</a></li>
+            </ul>
         </div>
     </nav>
 
-    <!-- Side menu -->
-    <aside class="">
-        <ul>
-            <li>who
-                <ul>
-                    <li>name</li>
-                    <li>location</li>
+    <div class="container">
+        <!-- Side menu & banner -->
+        <div class="row">
+            <!-- Side menu -->
+            <aside class="col-md-*">
+                <ul class="list-unstyled list-inline">
+                    <li>who
+                        <ul class="list-unstyled list-inline">
+                            <li>name</li>
+                            <li>location</li>
+                        </ul>
+                    </li>
+                    <li>career
+                        <ul class="list-unstyled list-inline">
+                            <li>history</li>
+                            <li>current</li>
+                        </ul>
+                    <li>like
+                        <ul class="list-unstyled list-inline">
+                            <li>health</li>
+                            <li>habby</li>
+                        </ul>
+                    </li>
                 </ul>
-            </li>
-            <li>career
-                <ul>
-                    <li>history</li>
-                    <li>current</li>
-                </ul>
-            <li>like
-                <ul>
-                    <li>health</li>
-                    <li>habby</li>
-                </ul>
-            </li>
-        </ul>
-    </aside>
+            </aside>
+        </div>
 
-    <!--     <div iv class="col-md-6 col-xs-4"> -->
-
-        <section class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <caption></caption>
-                                <tr>
-                                    <th>no</th>
-                                    <th>subject</th>
-                                    <th>period</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>swim</td>
-                                    <td>1 year</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>weight training</td>
-                                    <td>6 months</td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td>total</td>
-                                    <td colspan="2">1.6 years</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
+        <div class="row">
+            <!-- article who -->
+            <article class="col-md-6">
+                <h3>Who</h3>
+                <div class="row">
+                    <section class="col-md-6">
+                        <div class="table-responsive">
+                           <p>Ryu dae seok</p>
+                        </div>
+                    </section>
+                    <section class="col-md-6">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover table-condensed">
+                                <thead>
+                                    <caption>Location</caption>
+                                    <tr>
+                                        <th>no</th>
+                                        <th>subject</th>
+                                        <th>period</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>swim</td>
+                                        <td>1 year</td>
+                                    </tr>
+                                    <tr  class="success">
+                                        <td>2</td>
+                                        <td>weight training</td>
+                                        <td>6 months</td>
+                                    </tr>
+                                    <tr  class="success">
+                                        <td>2</td>
+                                        <td>weight training</td>
+                                        <td>6 months</td>
+                                    </tr>
+                                    <tr  class="info">
+                                        <td>2</td>
+                                        <td>weight training</td>
+                                        <td>6 months</td>
+                                    </tr>
+                                    <tr  class="warning">
+                                        <td>2</td>
+                                        <td>weight training</td>
+                                        <td>6 months</td>
+                                    </tr>
+                                    <tr  class="danger">
+                                        <td>2</td>
+                                        <td>weight training</td>
+                                        <td>6 months</td>
+                                    </tr>
+                                    <tr  class="active">
+                                        <td>2</td>
+                                        <td>weight training</td>
+                                        <td>6 months</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>total</td>
+                                        <td colspan="2">1.6 years</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </section>
                 </div>
-        </section>
-        
+            </article>
 
-        <!-- like 내용 -->
-        <article>
-            <h3>like</h3>
-            <section>
-                <h4>health</h4>
-                <table border=1>
-                    <thead>
-                        <caption></caption>
-                        <tr>
-                            <th>no</th>
-                            <th>subject</th>
-                            <th>period</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>swim</td>
-                            <td>1 year</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>weight training</td>
-                            <td>6 months</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td>total</td>
-                            <td colspan="2">1.6 years</td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </section>
-            <section>
-                <h4>hobby</h4>
+            <!-- article career -->
+            <article class="col-md-6">
+                <h3>career</h3>
+                <div class="row">
+                    <section class="col-md-6">
+                        <h4>history</h4>
+                        <dl>
+                            <dt>sinsiway</dt>
+                            <dd>security software</dd>
+                        </dl>
+                    </section>
+                    <section class="col-md-6">
+                        <h4>current</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <p class="lead">Suspendisse ac <mark>Aenean volutpat</mark> scelerisq enim.</p> in pharetra erat tellus at m</p>
+                        <code>&lt;section&gt;</code>
+                        <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
+                    </section>
+                </div>
+            </article>
+        </div>
 
+            <!-- article like -->
+        <div class="row">
+            <article class="col-md-6">
+                <h3>like</h3>
+                <section>
+                    <h4>health</h4>
+                    <table>
+                        <thead>
+                            <caption></caption>
+                            <tr>
+                                <th>no</th>
+                                <th>subject</th>
+                                <th>period</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>swim</td>
+                                <td>1 year</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>weight training</td>
+                                <td>6 months</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>total</td>
+                                <td colspan="2">1.6 years</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </section>
+            </article>
+            <section class="col-md-6">
+                <form action="/action_page.php" target="_blank" method="get">
+                    <p class="help-block">폼 태그의 name과 value의미는?<br>id와 class의 활용법</p>
+                        <div class="form-group">
+                            <label for="inputEmail">이메일주소</label>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="이메일을 입력하세요">
+                            <p><code> div를 안쓰면 간격 제로에 플로팅 </code></p>
+                        </div>
+                        <div class="form-group">
+                        <label for="inputPassword">암호</label>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="패스워드를 입력하세요">
+                    </div>
+                        <div class="form-group">
+                        <label for="inputFile">파일업로드</label>
+                        <input type="file" id="inputFile">
+                        <input type="text" name="firstname"><br>
+                        <input type="radio" name="gender" value="male" checked>Male<br>
+                        <input type="radio" name="gender" value="female" checked>Female<br>
+                        <input type="radio" name="gender" value="other" checked>Other<br>
+                        <label>
+                            <input type="checkbox">체크박스
+                        </label>
+                        <button type="submit" value="Submit">확인</button>
+                </form>
             </section>
-        </article>
-
-        <!-- career 내용 -->
-        <article>
-            <h3>career</h3>
-            <section>
-                <h4>history</h4>
-                <dl>
-                    <dt>sinsiway</dt>
-                    <dd>- i don't like</dd>
-                    <dd>- it's too bad</dd>
-                </dl>
-            </section>
-            <section>
-                <h4>current</h4>
-                <p>where is..</p>
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3166.0039844887447!2d127.1154640267726!3d37.48423234475208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca5f2389c67a9%3A0x88e59a0cd87c44e0!2zSCDruYTsp4Dri4jsiqQg7YyM7YGs!5e0!3m2!1sko!2skr!4v1554857015782!5m2!1sko!2skr"
-                    width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </section>
-        </article>
-        <footer>
-            <p>&#169;ryu</p>
-            <p>Posted by: Hege Refsnes</p>
-            <p>Contact information: <a href="mailto:someone@example.com">
-                    someone@example.com</a>.</p>
-        </footer>
-
+        </div>
     </div>
 
-    <script>
-        $('#myTab a').click(function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-        })
-    </script>
+    <footer>
+        <p>&#169;</p>
+        <address>
+            <strong>Sinsiway</strong><br>
+            서울시 송파구 문정동 법원로 9길 에이치비지니스파크 D동 4층<br>
+            <a href="mailto:dsryu@sinsiway.com">dsryu@sinsiway.com</a>
+        </address>
+    </footer>
+
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
