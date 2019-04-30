@@ -1,0 +1,10 @@
+function solution(s){
+	var arr = s.split("");
+//	var i = Math.floor(arr.length/2);
+	var i = parseInt(arr.length/2);
+	if(arr.length % 2 == 0){
+		console.log(arr[i-1]+arr[i]);
+	}else{
+		console.log(arr[i]);
+	}
+}
