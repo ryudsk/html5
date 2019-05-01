@@ -1,10 +1,55 @@
+1.
 function solution(s){
-	var arr = s.split("");
-//	var i = Math.floor(arr.length/2);
-	var i = parseInt(arr.length/2);
-	if(arr.length % 2 == 0){
-		console.log(arr[i-1]+arr[i]);
-	}else{
-		console.log(arr[i]);
+	try{
+		if(s.length < 1 || s.length > 100) throw "failed"; 
+		var arr = s.split("");
+	//	var i = Math.floor(arr.length/2);
+		var i = parseInt(arr.length/2);
+		if(arr.length % 2 == 0){
+			var answer = arr[i-1]+arr[i];
+		}else{
+			var answer = arr[i];
+		}
+		return answer;
+	}catch(err){
+		console.log(err);
+	}
+}
+
+2.
+var seoul = ["Kim","Jane","Ryu","Mike"];
+function solution(seoul){
+	var answer = seoul.indexOf("Kim");
+	return "김서방은 "+answer+"에 있다";
+}
+
+3.
+function solution(n){
+	var answer = 0;
+	if(n != 0) { 
+		for(i=1; i <= 3000; i++){
+			if(n%i == 0){
+				answer += i;
+			}
+		}
+	} else {
+		answer = 0;
+	}
+	return answer;
+}
+
+4.
+function solution(n){
+	var answer = 0;
+	var m = n;
+	var i = 0;
+	do{
+		m = parseInt( m / 10 );
+		i++;
+	}while(m >= 10);
+	
+	var arr = new Array(i+1);
+	for(k=0; k <= i; k++){
+		arr[i] = n / 10^k
 	}
 }
