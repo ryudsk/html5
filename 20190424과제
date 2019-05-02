@@ -38,7 +38,7 @@ function solution(n){
 	return answer;
 }
 
-4. 숫자를 배열에 넣어보자
+4. Q: Why 800000001 -> 811000000   
 function solution(n){
 	var answer = 0;
 	var pn = n;
@@ -55,5 +55,54 @@ function solution(n){
 		num = num % Math.pow(10,i);
 		i--;
 	}
-	console.log(arr);
+	
+	// 큰 수 찾기
+	for(var p = 0; p < arr.length-1; p++){
+		var tmp = 0;
+		for(var q = p+1; q < arr.length; q++){
+			if(arr[p] < arr [q]){				
+				tmp = arr[p];
+				arr[p] = arr[q];
+				arr[q] = tmp;
+			}
+		}
+	}
+
+	// arr -> integer
+	var answer = "";
+	for(var x = 0; x < arr.length; x++){
+		answer = answer + arr[x];
+	}
+
+ 	return parseInt(answer);
+}
+
+5.
+function solution(n){
+	var answer = 0;
+	for(var i = 1; i <= n; i++){
+		if( i == n / i ){
+			answer = (i+1) * (i+1);
+			break; 
+		} else {
+			answer = -1;
+		}
+	}
+
+	return answer;
+}
+
+6. 1~1000 사이 3의 배수와 5의 배수의 합
+function solution(){
+	var answer = 0;
+	for(i = 1; i <= 1000; i++){
+		if( i % 3 == 0){
+			answer = answer + i;
+			continue;
+		} else if( i % 5 == 0){
+			answer = answer + i;
+		}
+	}
+	return answer;
+}
 }
