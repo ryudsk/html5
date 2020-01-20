@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
         <title>table tag</title>
+        <style>
+            table { border-collapse: collapse;}
+            table, th, td { border: 1px solid black; }
+        </style>
     </head>
     <body>
         <h2>테이블 태그</h2>
@@ -9,7 +14,6 @@
         <p>colspan, rowspan</p>
 
         <h3>기본 테이블</h3>
-
         <table> 
             <caption>2row 3col table</caption>
             <tr>
@@ -22,6 +26,65 @@
                 <td>2 row 2 col</td>
                 <td>2 row 3 col</td>
             </tr>
+        </table>
+
+        <h3>셀 병합</h3>
+        <table>
+            <tr>
+                <td colspan="2">가로셀병합</td>
+            </tr>
+            <tr>
+                <td>가로셀병합</td>
+                <td>가로셀병합</td>
+            </tr>
+
+            <tr>
+                <td rowspan="2">세로줄병합</td>
+                <td>세로줄병합</td>
+            </tr>
+            <tr>
+                <td>세로줄병합</td>
+            </tr>
+        </table>
+
+        <h3>웹 표준 테이블</h3>
+        <table>
+            <caption>성적표</caption>
+            <colgroup>
+                <col span="2" width="100" />
+                <col width="100" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>성명</th>
+                    <th>국어</th>
+                    <th>수학</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td>합계</td>
+                    <td>210</td>
+                    <td>260</td>
+                </tr>
+            </tfoot>
+            <tbody>
+                <tr>
+                    <td>홍길동</td>
+                    <td>80</td>
+                    <td>90</td>
+                </tr>
+                <tr>
+                    <td>이순신</td>
+                    <td>70</td>
+                    <td>70</td>
+                </tr>
+                <tr>
+                    <td>강감찬</td>
+                    <td>60</td>
+                    <td>100</td>
+                </tr>
+            </tbody>
         </table>
     </body>
 
