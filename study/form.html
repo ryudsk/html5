@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>form tag</title>
+    </head>
+    <body>
+        <form name="name" method="post" action="">
+            <fieldset>
+                <legend>폼양식그룹</legend>
+                <h3>1. text</h3>
+                <input type="text" maxlength="15" size="10" />
+                <h3>2. password</h3>
+                <input type="password" maxlength="15" size="10" />
+                <h3>3. radio button</h3>
+                <input type="radio" name="a" id="a01" /><label for="a01">동의함</label>
+                <input type="radio" name="a" id="a02" /><label for="a02">동의하지 않음</label>
+                <h3>4. check box</h3>
+                <input type="checkbox" id="b01" /><label for="b01">컴퓨터</label>
+                <input type="checkbox" id="b02" /><label for="b02">음악감상</label>
+                <input type="checkbox" id="b03" /><label for="b03">운동</label>
+                <input type="checkbox" id="b04" /><label for="b04">기타</label>
+                <h3>5. select box</h3>
+                <select>
+                    <option>-</option>
+                    <option>SKT</option>
+                    <option>KT</option>
+                    <option>LG</option>
+                </select>
+                <h3>6. textarea</h3>
+                <textarea cols="50" rows="10"></textarea>
+                <h3>7. file</h3>
+                <input type="file" />
+                <h3>8. button</h3>
+                <input type="submit" value="확인" /> submit <br/>
+                <input type="reset" value="취소" /> reset <br/>
+                <input type="button" value="버튼" /> button <br/>
+                <input type="image" src="./daum.png" alt="이미지버튼" /> image <br/>
+            </fieldset>
+        </form>
+    </body>
+</html>
