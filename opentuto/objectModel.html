@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+        <head><meta charset="utf-8" /></head>
+<body>
+        <!--  브라우저의 각종 요소들을 객체화 -->
+        <h3>bom </h3>
+        <input type="button" onclick="alert(window.location)" value="alert(window.location)" />
+        <input type="button" onclick="window.open('html_js.html')" value="window.open('html_js.html')" />
+        
+        <!-- 웹페이지의 내용 -->
+        <h3>dom</h3>
+        <img src="https://s3.ap-northeast-2.amazonaws.com/opentutorials-user-file/course/94.png" />
+        <img src="https://s3.ap-northeast-2.amazonaws.com/opentutorials-user-file/course/94.png" />
+        <img src="https://s3.ap-northeast-2.amazonaws.com/opentutorials-user-file/course/94.png" />
+        <img src="https://s3.ap-northeast-2.amazonaws.com/opentutorials-user-file/course/94.png" />
+<script>
+        // var imgs = document.getElementsByTagName('img');
+        // imgs[0].style.width='300';
+        
+        // window.alert('Hello world');
+        // window.document.getElementsByTagName.length;
+        /*
+        javascript web browser programming
+        
+        BOM : Browser Object Model
+        DOM : Document Object Model
+        
+        window: 전역객체, window, frame control object.. 생략해도 동일
+        - (DOM) document: tags..
+        - (BOM) navigator
+        screen
+        location
+        frames
+        history
+        XMLHttpRequest
+        - JavaScript Core
+        Object, Array, Function ... 
+        
+        javascript host env... : browser, google apps script, node.js ..
+        
+        */
+        // body 객체
+        console.log(document.body);
+        console.log(document.getElementsByTagName('body')[0]);
+        // 이미지 객체들의 리스트
+        console.log(document.images);
+        console.log(document.getElementsByTagName('img'));
+</script>
+</body>
+</html>
