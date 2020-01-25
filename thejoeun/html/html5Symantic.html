@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8"/>
+        <title>html5 Symantic</title>
+    </head>
+    <body>
+        <h1>html5 시멘틱 구조태그</h1>
+        <h2>1. header</h2>
+        <p>website의 상단영역으로 Logo, 검색폼, 메인메뉴(navigation) 등의 요소를 포함</p>
+        
+        <h2>2. nav</h2>
+        <p>navigation의 약자로 메뉴목록 영역<br />
+        보통 메인메뉴(gnb-Global Navi Bar), 서브메뉴(lnb-Local Navi Bar) 등을 표현할 때 사용</p>
+        
+        <h2>3. section</h2>
+        <p>의미가 같은 내용 끼리의 묶는 contents 그룹요소(예를 들면 신문의 정치, 경제, 사회, 문화 등)<br />
+        section 요소 사용 시 반드시 바로 아래 제목요소(h2~h6) 중 하나가 나와야 함 - 웹표준 마크업 검사 시 체크항목</p>
+        
+        <h2>4. article</h2>
+        <p>독립적인(자립적인) contents - h2~h6</p>
+        
+        <h2>5. aside</h2>
+        <p>웹사이트 측면(left, right)에 들어가는 사이드메뉴, 배너 등</p>
+        
+        <h2>6. footer</h2>
+        <p>웹사이트 하단영역, 로고, 회사명, 주소, 메뉴, 카피라이트 등</p>
+        
+        <h2>새로 추가된 태그요소</h2>
+        <h3>figure, figcaption</h3>
+        
+        <figure>
+            <img src="./daum.png" alt="이벤트" />
+            <figcaption>크리스마스 이벤트</figcaption>
+        </figure>
+        
+        <h3>mark</h3>
+        <p><mark>웹접근성</mark>이란? 누구나 신체적 환경적 조건에 상관없이 웹에 접근하여 사용할 수 있도록 보장하는 것을 말한다. 검색 키워드 등을 강조 처리</p>
+        
+        <h3>time</h3>
+        <p>사용자가 작성한 날짜나 시간을 브라우저가 이해하도록 표시</p>
+        <time datetime="2017-12-24T10:52:00">오전 10시 52분</time>
+        <time datetime="2017-12-24">2017년 12월 24일</time>
+        
+        <h3>progress, meter</h3>
+        <progress></progress>
+        <meter></meter>
+    </body>
+</html>
