@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>html5 form tag</title>
+</head>
+<body>
+    <h1>html5 form tag</h1>
+    <p>search 검색 키워드, 삭제 버튼</p>
+    <input type="search" /> 
+    <p>email 모바일에서 키패드 활성화</p>
+    <input type="email" /> 
+    <p>url 주소 입력 시 모바일에서 키패드 활성화</p>
+    <input type="url" /> 
+    <p>tel모바일에서 숫자 키패드 활성화</p>
+    <input type="tel" />
+    <p>number 업다운 기능</p>
+    <input type="number" /> 
+    <p>range 슬라이더 막대로 숫자 범위</p>
+    <input type="range" />
+    <p>date 날짜 입력, 달력 활성화(크롬)</p>
+    <input type="date" />
+    <p>datetime 날짜, 시간 입력 활성화(크롬) - 동작X</p>
+    <input type="datetime" />
+    <p>month 달력 활성화(크롬)</p>
+    <input type="month" />
+    <p>week 달력 활성화(크롬)</p>
+    <input type="week" />
+    <p>time 달력 활성화(크롬)</p>
+    <input type="time" />
+    <p>color 색상선택 활성화</p>
+    <input type="color" />
+
+    <h2>form attr</h2>
+    <form name="name" method="get" action="url">
+        <p>required - 필수 입력 값</p>
+        <label for="id">id : </label>
+        <input type="text" id="id" required />
+        <input type="submit" value="LOGIN" />
+
+        <p>placeholder - 필드 입력 예시</p>
+        <fieldset>
+            <legend>이메일</legend>
+            <input type="email" placeholder="abc@email.com" />
+            <input type="submit" value="SEND" />
+        </fieldset>
+
+        <p>autocomplete - 자동완성 사용 여부</p>
+        <fieldset>
+            <legend>자동완성</legend>
+            <input type="tel" placeholder="전화번호" autocomplete="on" />
+            <input type="url" placeholder="URL" autocomplete="on" />
+            <input type="submit" value="확인" />
+        </fieldset>
+
+        <p>list - 리스트로 자동완성</p>
+        <fieldset>
+            <legend>list</legend>
+            <input type="text" placeholder="리스트" list="subject" />
+            <datalist id="subject">
+                <option value="html5"></option>
+                <option value="css3"></option>
+                <option value="jquery"></option>
+            </datalist>
+        </fieldset>
+
+        <p>autofocus - 입력필드 커서 위치</p>
+        <fieldset>
+            <legend>autofocus</legend>
+            <input type="text" placeholder="autofocus" autofocus />
+        </fieldset>
+
+        <p>disabled, readonly</p>
+        <fieldset>
+            <legend>disabled, readonly</legend>
+            <input type="text" disabled /><br>
+            <input type="text" value="html5" readonly />
+        </fieldset>
+
+        <p>pattern - check regular expr</p>
+        <input type="tel" pattern="\d{3}-\d{3,4}-\d{4}" title="3자리-3또는4자리-4자리" placeholder="000-0000-0000" />
+        <input type="submit" value="확인" />
+
+        <p>multiple - select list에서 ctrl(shift)키로 둘 이상 선택</p>
+        <fieldset>
+            <legend>multiple</legend>
+            <select multiple="multiple">
+                <option>김밥</option>
+                <option>떡볶이</option>
+                <option>라면</option>
+                <option>기타</option>
+            </select>
+        </fieldset>
+    </form>
+</body>
+</html>

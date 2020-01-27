@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <title>멀티미디어 태그</title>
+    </head>
+    <body>
+        <h1>멀티미디어 태그</h1>
+        <p>멀티미디어 - text, image, sound, video, animation, etc.</p>
+        
+        <h2>Sound</h2>
+        <p>mp3, wav, ogg</p>
+        <audio controls>
+            <source src="./movie/Kalimba.mp3" type="audio/mp3" />
+            이 브라우저에서는 지원되지 않는 콘텐츠가 있습니다.
+        </audio>
+        
+        <h2>Video</h2>
+        <p>mp4, avi, webm, ogg, 영상을 2가지 입력하여 지원 안되는 영상은 다른 파일로 대체 가능</p>
+        <video width="300" height="200" controls>
+            <source src="./movie/1.mp4" type="video/mp4" />
+            <source src="./movie/1.webm" type="video/webm" />
+            이 브라우저에서는 지원되지 않는 콘텐츠가 있습니다.
+        </video>
+        
+        <h2>영상에 자막넣기</h2>
+        <video width="300" height="200" controls>
+            <source src="./movie/1.mp4" type="video/mp4" />
+            <track kind="subtitles" src="./movie/trace.srt" srclang="ko" label="Korean" />
+            <track kind="subtitles" src="./movie/trace.srt" srclang="en" label="English" />
+            <track kind="subtitles" src="./movie/trace.srt" srclang="jp" label="Japanese" />
+            <track kind="subtitles" src="./movie/trace.srt" srclang="ch" label="Chinese" />
+            이 브라우저에서는 지원되지 않는 콘텐츠가 있습니다.
+        </video>
+        
+        
+        
+    </body>
+
+</html>
