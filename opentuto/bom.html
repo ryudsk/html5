@@ -7,24 +7,206 @@
     <title>BOM</title>
 </head>
 <body>
-    <input type="button" value="alert" onclick="alertfnc()" />
+    <h1>BOM</h1>
+    
+    <h3>alert</h3>
+    <p>메시지를 받아 띄우는 팝업 창</p>
+    <input type="button" value="alert" onclick="func_alert()" />
+
+    <h3>confirm</h3>
+    <p>팝업 창 확인, 취소 버튼으로 true, false 처리</p>
+    <input type="button" value="confirm" onclick="func_confirm()" />
+    
+    <h3>prompt</h3>
+    <p>사용자로부터 값을 입력받아 전달하는 팝업</p>
+    <input type="button" value="prompt" onclick="func_prompt()" />
+
+    <h3>location</h3>
+    <p>현재 열려있는 문서의 url 관련 정보</p>
+    <p>http://sinsiway.com:80/module/1?id=1#hash</p>
+    <dl>
+        <dt>url parsing</dt>
+        <dd>protocol : http, https (http)</dd>
+        <dd>host : service address (sinsiway.com)</dd>
+        <dd>port : service port (80)</dd>
+        <dd>pathname : service(app) name (module/1)</dd>
+        <dd>search : query string (?id=1)</dd>
+        <dd>hash : bookmark value (#hash)</dd>
+    </dl>
+    <dl>
+        <dt>url 변경과 reload</dt>
+        <dd>location.href = 'http://naver.com'; // redirection</dd>
+        <dd>location = 'http://naver.com'; // 위와 동일</dd>
+        <dd>location.reload(); // current page reloading</dd>
+        <dd>http가 없으면, host이하 service name으로 붙음</dd>
+    </dl>
+
+    <h3>navigator</h3>
+    <p>cross browser - W3C :: HTML, CSS, ECMA(JS) spec </p>
+    <dl>
+        <dt>console.dir(navigator)로 프로퍼티를 확인</dt>
+        <dd>navigator.appName // netscape</dd>
+        <dd>navigator.appVersion // browser 정보</dd>
+        <dd>navigator.userAgent // client의 Request Header에 실리는 appVersion 수준의 내용</dd>
+        <dd>navigator.platform // os info</dd>
+    </dl>
+    <p>브라우저 기능 테스트(Polyfill), 예) Object.keys - ECMA5 - 기능의 존재 유무를 체크하고 없다면, 구현..</p>
+    <pre><code>
+        // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+        if (!Object.keys) {
+        Object.keys = (function () {
+            'use strict';
+            var hasOwnProperty = Object.prototype.hasOwnProperty,
+                hasDontEnumBug = !({toString: null}).propertyIsEnumerable('toString'),
+                dontEnums = [
+                'toString',
+                'toLocaleString',
+                'valueOf',
+                'hasOwnProperty',
+                'isPrototypeOf',
+                'propertyIsEnumerable',
+                'constructor'
+                ],
+                dontEnumsLength = dontEnums.length;
+        
+            return function (obj) {
+            if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
+                throw new TypeError('Object.keys called on non-object');
+            }
+        
+            var result = [], prop, i;
+        
+            for (prop in obj) {
+                if (hasOwnProperty.call(obj, prop)) {
+                result.push(prop);
+                }
+            }
+        
+            if (hasDontEnumBug) {
+                for (i = 0; i < dontEnumsLength; i++) {
+                if (hasOwnProperty.call(obj, dontEnums[i])) {
+                    result.push(dontEnums[i]);
+                }
+                }
+            }
+            return result;
+            };
+        }());
+        }
+    </code></pre>
+
+    <h3>window.open</h3>
+    <p>window control</p>
+    <ul>
+        <li>첫번째 인자는 문서 url, 두번째 인자는 스크립트를 실행할 창 선택(기본값 _blank)<br>
+            <input type="button" onclick="open1()" value="window.open()"/>
+        </li>
+        <li>_self<br>
+            <input type="button" onclick="open2()" value="window.open('','_self')" />
+        </li>
+        <li>_blank<br>
+            <input type="button" onclick="open3()" value="window.open('','_blank')" />
+        </li>
+        <li>naming<br>
+            <input type="button" onclick="open4()" value="window.open('','ot')" />
+        </li>
+        <li>3번째 인자값, 창 속성<br>
+            <input type="button" onclick="open5()" value="window.open('','_blank','width=,height=,resizable=yes')" />
+        </li>
+        
+    </ul>
+
 <script>
-    function alertfnc(){
-        alert(1);
-        alert(2);
-        alert(3);
-    }
-    // window - global 
+    // window - global value
     var a = 1;
     var b = {id:1};
     console.log(a);
     console.log(window.a);
     console.log(b.id);
     console.log(window.b.id);
+    
+    // alert
+    function func_alert(){
+        alert(1);
+        alert(2);
+        alert(3);
+    }
 
-    /*
-        alert
-    */
+    // confirm
+    function func_confirm(){
+        if(confirm('ok?')) { //첫번째 인자는 사용자에게 보여지는 msg
+            alert('ok');
+        } else {
+            alert('cancel');
+        }
+    }
+
+    // prompt
+    function func_prompt(){
+        if(prompt('id?') === 'ddo'){
+            alert('welcome');
+        } else {
+            alert('fail');
+        }
+    }
+
+    // location
+    console.log(location.toString(), location.href); // 같은 결과, href가 정확한 표현
+    console.log(location); // location 객체 표현
+    // alert(location); // location.toString() 처리하여 표현, alert 자동 처리
+    // url을 구분 출력
+    console.log(location.protocol, location.host, location.port, location.pathname, location.search, location.hash);
+
+    // navigator browser test ( Polyfill )
+    // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+    if(!Object.keys) {
+        Object.keys = (function() {
+            'use strict';
+            var hasOwnProperty = Object.prototype.hasOwnProperty,
+                hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
+                dontEnums = [
+                    'toString',
+                    'toLocaleString',
+                    'valueOf',
+                    'hasOwnProperty',
+                    'isPrototypeOf',
+                    'propertyIsEnumerable',
+                    'constructor'
+                ],
+                dontEnumsLength = dontEnums.length;
+
+            return function(obj) {
+                if (typeof obj !== 'function' && (typeof obj !== 'object' || obj === null)) {
+                    throw new TypeError('Object.keys called on non-object');
+                }
+
+                var result = [], prop, i;
+                
+                for (prop in obj) {
+                    if (hasOwnProperty.call(obj, prop)) {
+                        result.push(prop);
+                    }
+                }
+
+                if (hasDontEnumBug) {
+                    for (i = 0; i < dontEnumsLength; i++) {
+                        if (hasOwnProperty.call(obj, dontEnums[i])) {
+                            result.push(dontEnums[i]);
+                        }
+                    }
+                }
+
+                return result;
+            };
+        }());
+    }
+
+    function open1(){ window.open('html_js.html'); }
+    function open2(){ window.open('html_js.html', '_self'); }
+    function open3(){ window.open('html_js.html', '_blank'); }
+    function open4(){ window.open('html_js.html', 'ot'); }
+    function open5(){ window.open('html_js.html', '_blank', 'width=200, height=200, resizable=yes'); }
+
 </script>   
 </body>
 </html>
