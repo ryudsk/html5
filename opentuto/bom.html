@@ -116,7 +116,31 @@
         
     </ul>
 
+    <h3>새 창에 접근</h3>
+    <p>window 객체를 변수로 받아서 새창을 컨트롤, onkeypress로 데이터를 다른 창(세션)으로 보내는 것은 cors로 막힘</p>
+    <input type="button" value="open" onclick="winopen();" />
+    <input type="text" onkeypress="winmessage(this.value);" />
+    <input type="button" value="close" onclick="winclose();" />
+
+    <h3>보안</h3>
+    <p>사용자 이벤트로는 팝업이 뜨고, 스크립트로 띄우는 건 차단됨</p>
+    <input type="button" value="open" onclick="window.open('demo2.html');" />
+
 <script>
+    //보안에서 차단되는 팝업..
+    // window.open('demo2.html');
+
+    //새 창에 접근
+    function winopen() {
+        win = window.open('demo2.html','ot');
+    }
+    function winmessage(msg) {
+        win.document.getElementById('message').innerText = msg;
+    }
+    function winclose() {
+        win.close();
+    }
+
     // window - global value
     var a = 1;
     var b = {id:1};
