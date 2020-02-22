@@ -6,6 +6,53 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <ul>
+        <li>HTML1</li>
+        <li id="active">CSS1</li>
+        <li class="active">JavaScript1</li>
+    </ul>
+    <ol>
+        <li>HTML2</li>
+        <li>CSS2</li>
+        <li>JavaScript2</li>
+    </ol>
+
+    <script>
+        // getElementsByTagName - HTMLCollection, [0]을 해야 실제 태그 객체
+        // var ul = document.getElementsByTagName('ul')[0];
+        // var lis = ul.getElementsByTagName('li'); 
+
+        // getElementsByClassName
+        // var lis = document.getElementsByClassName('active'); 
+        // for(var i=0; i < lis.length; i++) {
+        //     lis[i].style.color='red';
+        // }
+
+        // getElementById - not array..
+        // var li = document.getElementById('active');
+        // li.style.color='red';
+
+        // querySelector - only one, first
+        // var li = document.querySelector('li'); // HTML1
+        // li.style.color='red';
+        // var li = document.querySelector('.active'); // JavaScript1
+        // li.style.color='blue';
+        // var li = document.querySelector('#active'); // CSS1
+        // li.style.color='green';
+
+        // querySelectorAll
+        // var lis = document.querySelectorAll('li'); // for in 문을 쓰면 name에 다른 키 값도 들어와서, 오류가 발생함
+        var lis = Array.from(document.querySelectorAll('li')); // 새로운 Array 인스턴스를 생성, 얕은복사 
+        for(var name in lis) { 
+            console.log("==="+name);
+            console.log(lis[name]);
+            lis[name].style.color = 'blue';
+        }
+        // for( i=0, len=lis.length; i < len; i++) {
+        //     console.log(i);
+        //     console.log(lis[i]);
+        //     lis[i].style.color = 'blue';
+        // }
+    </script>
 </body>
 </html>
