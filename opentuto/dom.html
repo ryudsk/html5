@@ -41,18 +41,22 @@
         // li.style.color='green';
 
         // querySelectorAll
-        // var lis = document.querySelectorAll('li'); // for in 문을 쓰면 name에 다른 키 값도 들어와서, 오류가 발생함
-        var lis = Array.from(document.querySelectorAll('li')); // 새로운 Array 인스턴스를 생성, 얕은복사 
-        for(var name in lis) { 
-            console.log("==="+name);
-            console.log(lis[name]);
-            lis[name].style.color = 'blue';
-        }
-        // for( i=0, len=lis.length; i < len; i++) {
-        //     console.log(i);
-        //     console.log(lis[i]);
-        //     lis[i].style.color = 'blue';
+        /* querySelectorAll을 쓰면, NodeList(array-like object) 반환하는데
+         * 그대로 for in 문을 쓰면 키 값 안에 배열 인덱스 외 property가 함께 있어서, style.color가 없다는 에러 발생
+         * 새로운 Array 인스턴스를 생성하고 배열을 얕은복사하는 Array.from 구문 등을 쓰면 사용 가능
+         */
+        var lis = document.querySelectorAll('li'); 
+        // var lis = Array.from(document.querySelectorAll('li')); 
+        // for(var name in lis) { 
+        //     console.log("==="+name);
+        //     console.log(lis[name]);
+        //     lis[name].style.color = 'blue';
         // }
+        for( i=0, len=lis.length; i < len; i++) {
+            console.log(i);
+            console.log(lis[i]);
+            lis[i].style.color = 'blue';
+        }
     </script>
 </body>
 </html>
