@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery-3.4.1.js"></script>
+</head>
+<body>
+    <ul id="demo">
+        <li class="active">HTML</li>
+        <li id="active">CSS</li>
+        <li class="active">JavaScript</li>
+    </ul>
+    <script>
+        jQuery(document).ready(function($) {
+            //1. $('body').prepend('<h1>hello world</h1>');
+            //2. getElementsByTagName
+            // var lis = document.getElementsByTagName('li');
+            // for(var i=0; i < lis.length; i++) {
+            //     lis[i].style.color='red';
+            // }
+            // $('li').css('color','red'); //$('li') jQuery 객체 return
+            //3. getElementsByClassName
+            // var lis = document.getElementsByClassName('active');
+            // for(var i=0; i < lis.length; i++) {
+            //     lis[i].style.color='red';
+            // }
+            // $('.active').css('color','red');
+            //4. getElementById
+            // var li = document.getElementById('active');
+            // li.style.color='red';
+            // li.style.textDecoration='underline';
+            $('#active').css('color','red').css('textDecoration','underline');
+        });
+    </script>
+</body>
+</html>

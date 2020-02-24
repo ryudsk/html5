@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a id="anchor" href="http://naver.com">naver</a>
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li id="active">JavaScript</li>
+    </ul>
+    <input type="button" id="button" value="button" />
+    <script>
+        // HTML Element
+        // var li = document.getElementById('active');
+        // console.log(li.constructor.name); // HTMLLIElement
+        // var lis = document.getElementsByTagName('li');
+        // console.log(lis.constructor.name); // HTMLCollection(Array-like Object)
+        var target = document.getElementById('active');
+        console.log(target.constructor.name); // HTMLLIElement
+        var target = document.getElementById('anchor');
+        console.log(target.constructor.name); // HTMLAnchorElement
+        var target = document.getElementById('button');
+        console.log(target.constructor.name); // HTMLInputElement
+
+    </script>
+</body>
+</html>
