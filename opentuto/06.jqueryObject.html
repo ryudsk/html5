@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery-3.4.1.js"></script>
+</head>
+<body>
+    <ul>
+        <li style="color:red;">HTML</li>
+        <li>CSS</li>
+        <li id="active">JavaScript</li>
+    </ul>
+<script>
+    // tag select로 jquery 객체 생성
+    var li = $('li'); // jquery func $(), li는 object
+    li.css('text-decoration','underline'); // 암시적인 반복처리 - 2개 인자는 설정
+    console.log(li.css('text-decoration')); // 1개 인자는 값을 가져오는 것, li[0]만 가져옴
+    li.css('text-decoration','underline').css('color','red'); // 체이닝
+
+    // li는 jquery 객체지만, li[0]은 DOM 객체
+    for(var i=0; i < li.length; i++) {
+        console.log(li[i].constructor); // li[]는 HTMLLIElement (DOM) 객체
+        // console.log(li[i].css('color','blue')); // error not a function
+        // console.log($(li[i]).css('color','blue')); // 
+    }
+    // $(DOM)
+    console.log($(document.getElementById('active'))); //jQuery.fn.init[li#active]
+
+    // map - element를 순회하면서 함수 처리, 1번 인자는 인덱스, 2번 인자는 DOM객체
+    var li = $('li');
+    li.map(function(index, elem) {
+        console.log(index, elem);
+        $(elem).css('color','blue');
+    })
+
+    // jquery api
+    // https://api.jquery.com
+</script>
+</body>
+</html>

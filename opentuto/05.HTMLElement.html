@@ -6,13 +6,16 @@
     <title>Document</title>
 </head>
 <body>
-    <a id="anchor" href="http://naver.com">naver</a>
+    <h2>HTML Element</h2>
+    <p>리턴 객체가 단수, getElementById</p>
     <ul>
         <li>HTML</li>
         <li>CSS</li>
         <li id="active">JavaScript</li>
     </ul>
-    <input type="button" id="button" value="button" />
+    <a id="anchor" href="https://www.w3.org/TR/2003/REC-DOM-Level-2-HTML-20030109/html.html#ID-63534901">Document Object Model HTML</a><br/>
+    <input type="button" id="button" value="button" /><br/>
+    <img src="https://web.stanford.edu/class/cs98si/img/dom_types.png" />
     <script>
         // HTML Element
         // var li = document.getElementById('active');
@@ -26,6 +29,25 @@
         var target = document.getElementById('button');
         console.log(target.constructor.name); // HTMLInputElement
 
+    </script>
+    <h2>HTML Collection</h2>
+    <p>리턴 결과가 복수, Array-like object<br>
+    collection은 노드 변경사항이 실시간 반영됨
+    </p>
+    <script>
+        console.group('before');
+        var lis = document.getElementsByTagName('li');
+        for(var i=0; i < lis.length; i++){
+            console.log(lis[i]);
+        }
+        console.groupEnd();
+
+        console.group('after');
+        lis[1].parentNode.removeChild(lis[1]);
+        for(var i=0; i < lis.length; i++){
+            console.log(lis[i]);
+        }
+        console.groupEnd();
     </script>
 </body>
 </html>
