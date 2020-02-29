@@ -4,17 +4,180 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="jquery-3.4.1.js"></script>
 </head>
 <body>
+    <h2>엘리먼트 식별</h2>
     <ul>
         <li>HTML</li>
         <li>CSS</li>
         <li id="active">JavaScript</li>
     </ul>
     <img src="https://s3.ap-northeast-2.amazonaws.com/opentutorials-user-file/module/904/2240.png" />
+    <h2>하위 엘리먼트 조회</h2>
+    <ul>
+        <li class="marked">html</li>
+        <li>css</li>
+        <li id="active2">javascript
+            <ul>
+                <li>js core</li>
+                <li class="marked">dom</li>
+                <li class="marked">bom</li>
+            </ul>
+        </li>
+    </ul>
+    <h2>속성 확인과 변경</h2>
+    <a id="target" href="http://naver.com">naver</a>
+    <a id="target2" href="./02.demo2.html">demo2</a>
+    <p>프로퍼티 명은 속성과 다름, 값도 다를 수 있음(절대경로, 상대경로)</p>
+    <table border="1" cellpadding="1" cellspacing="1" style="width: 500px;">
+        <thead>
+            <tr>
+                <th>속성</th>
+                <th>프로퍼티</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>class</td>
+                <td>className</td>
+            </tr>
+            <tr>
+                <td>readonly</td>
+                <td>readOnly</td>
+            </tr>
+            <tr>
+                <td>rowspan</td>
+                <td>rowSpan</td>
+            </tr>
+            <tr>
+                <td>colspan</td>
+                <td>colSpan</td>
+            </tr>
+            <tr>
+                <td>usemap</td>
+                <td>userMap</td>
+            </tr>
+            <tr>
+                <td>frameborder</td>
+                <td>frameBorder</td>
+            </tr>
+            <tr>
+                <td>for</td>
+                <td>htmlFor</td>
+            </tr>
+            <tr>
+                <td>maxlength</td>
+                <td>maxLength</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>jQuery attr control API</h2>
+    <p>Element API에 준하는 jQuery API <br> 
+       setAttribute, getAttribute -> attr <br>
+       jQuery에서 attribute vs property<br>
+       jquery는 prop로 property를 쓰거나 html속성의 이름을 전달해도 결과가 같음
+    </p>
+    <a id="t1" href="./02.demo2.html" checked="checked">demo2</a>
+    <input id="t2" type="checkbox" checked="checked" />
+    <h2>jquery 조회 범위 제한</h2>
+    <ul>
+        <li class="marked2">html</li>
+        <li>css</li>
+        <li id="active3">javascript
+            <ul>
+                <li>JS Core</li>
+                <li class="marked2">Dom</li>
+                <li class="marked2">Bom</li>
+            </ul>
+        </li>
+    </ul>
 <script>
-    var t = document.getElementById('active');
-    console.log(t.constructor); //HTMLLIElement < HTMLElement < Element
+    // Element?
+    var active = document.getElementById('active');
+    console.log(active.constructor); //HTMLLIElement < HTMLElement < Element
+
+    // Element.tagName - 현재 엘리먼트의 태그 이름
+    console.log(document.getElementById('active').tagName);
+    // document.getElementById('active') = 'a'; // 변경 불가
+
+    // Element.id - 읽고, 값 변경
+    console.log(active.id);
+    active.id = "deactive"; 
+    console.log(active.id);
+
+    // Element.className - 제어 대상의 집합 그룹, css로 디자인 일괄 변경 등
+    active.className = "important current"; // class 속성 변경
+    active.className = "important readed"; // 특정 값 지정 불가, 전체 변경만 가능
+    active.className = active.className+ " current"; // 클래스 추가
+    // Element.classList
+    // active.classList - DOMTokenList 여러 클래스를 담아둔 객체, 유사배열
+    for(var i=0; i<active.classList.length; i++) {
+        console.log("classList : " + active.classList[i]); // 출력
+    }
+    active.classList.add('import'); // 추가
+    active.classList.remove('current'); // 삭제
+    active.classList.toggle('readed'); // 없으면 추가(return true), 있으면 삭제(return false)
+
+    // document.getElementsBy* vs element.getElementsBy*
+    var list = document.getElementsByClassName('marked'); // document.getElementsBy* - 문서전체
+    console.group('document');
+    for(var i=0; i<list.length; i++){
+        console.log(list[i].textContent); // 태그 내용, Enclosed text content
+    }
+    console.groupEnd();
+    console.group('active2');
+    var active2 = document.getElementById('active2'); //active2는 HTMLLIElement
+    var list = active2.getElementsByClassName('marked'); // element.getElementsBy* - activ2의 하위 엘리먼트
+    for(var i=0; i<list.length; i++){
+        console.log(list[i].textContent);
+    }
+    console.groupEnd();
+
+    // Element attribute
+    var t = document.getElementById('target');
+    console.log("element attr : ", t.getAttribute('href'));
+    console.log("element attr : ", t.getAttribute('id'));
+    console.log("element property id : ", t.id);
+    t.setAttribute('href','http://daum.net');
+    console.log(t.getAttribute('href'));
+    t.setAttribute('title','title_다음');
+    console.log(t.getAttribute('title'));
+    t.removeAttribute('title');
+    console.log(t.hasAttribute('title')); // attribute 있는지 확인
+
+    // attribute vs property
+    t.setAttribute('class','important-attribute'); // 속성 제어
+    t.className = 'important-property'; // element가 갖는 프로퍼티 제어
+    // 프로퍼티가 간편하고 속도도 빠르지만, 프로퍼티 명을 주의
+    t2 = document.getElementById('target2');
+    console.log('target2.href : ',t2.href);
+    console.log('target2.getAttribute("href") : ', t2.getAttribute("href"));
+
+    //jQuery API
+    var j = $('#target');
+    console.log(j.attr('href')); // getAttribute
+    j.attr('title','naver.com'); // setAttribute
+    j.removeAttr('title'); // removeAttribute
+
+    //jQuery attr, property
+    var t1 = $('#t1');
+    console.log("attr('href') :", t1.attr('href')); // getAttribute
+    console.log("prop('href') :", t1.prop('href')); // property
+    var t2 = $('#t2');
+    console.log(t2.attr('checked')); // 속성 checked에 해당하는 값 출력
+    console.log(t2.prop('checked')); // true 출력
+    // jquery가 알아서 해줌
+    $('#t1').prop('className','important'); // 프로퍼티 명 사용
+    $('#t2').prop('class','current'); // html 속성이름 사용
+
+    //jquery 조회 범위
+    // $( ".marked2", "#active3" ).css( "background-color", "red" ); // 첫번째 인자에 효과를 주려는 element를 지정, 두번째 인자 selector context - 범위제한
+    // $( "#active3 .marked2" ).css( "background-color", "blue" ); // 선택자를 바꿔 작성해도 동일
+    // find 사용하기
+    // $("#active3").find(".marked2").css("background-color", "yellow"); // 위와 같은 결과
+    $("#active3").css("color", "blue").find(".marked2").css("background-color","red");
+    // id로 찾아 하위 요소까지 폰트 색을 바꾸고, 다시 하위 class를 찾아 배경색 바꾸고
 </script>
 </body>
 </html>
