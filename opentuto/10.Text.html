@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text</title>
+</head>
+<body>
+    <h2>nodeValue</h2>
+    <p>실제 데이터 저장하는 객체</p>
+    <ul>
+        <li id="target1">html</li>
+        <li>css</li>
+        <li>JavaScript</li>
+    </ul>
+
+    <p id="target2">Hello World</p>
+    <p>data: <input type="text" id="dataSource" value="JS" /></p>
+    <p>start: <input type="text" id="start" value="3" /></p>
+    <p>end: <input type="text" id="end" value="3" /></p>
+    <input type="button" value="appendData(data)" onclick="callAppendData();" />
+    <input type="button" value="deleteData(start,end)" onclick="callDeleteData();" />
+    <input type="button" value="insertData(start,data)" onclick="callInsertData();" />
+    <input type="button" value="replaceData(start,end,data)" onclick="callReplaceData();" />
+    <input type="button" value="substringData(start,end)" onclick="callSubstringData();" />
+
+
+    <!-- Text > CharacterData -->
+    <script>
+        // 1. 값 API
+        var t = document.getElementById("target1").firstChild; // Text Node
+        console.log(t.nodeValue);
+        console.log(t.nodeValue = "HTML");
+        console.log(t.data);
+        // console.log(t.constructor); // Text()
+
+        // 2. 조작
+        var t2 = document.getElementById("target2").firstChild;
+        var data = document.getElementById("dataSource");
+        var start = document.getElementById("start");
+        var end = document.getElementById("end");
+        function callAppendData() {
+            t2.appendData(data.value); // data.getAttribute("value");
+        };
+        function callDeleteData() {
+            t2.deleteData(start.value, end.value);
+        };
+        function callInsertData() {
+            t2.insertData(start.value, data.value);
+        };
+        function callReplaceData() {
+            t2.replaceData(start.value, end.value, data.value);
+        };
+        function callSubstringData() {
+            alert(t2.substringData(start.value, end.value)); // start-0
+        };
+    </script>
+</body>
+</html>

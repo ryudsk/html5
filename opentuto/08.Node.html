@@ -3,9 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Node</title>
+    <script src="jquery-3.4.1.js"></script>
 </head>
-<body>
-    
+<body id="start">
+    <ul>
+        <li><a href="./532">html</a></li>
+        <li><a href="./533">css</a></li>
+        <li><a href="./534">javascript</a>
+            <ul>
+                <li><a href="./535">js core</a></li>
+                <li><a href="./536">DOM</a></li>
+                <li><a href="./537">BOM</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <ul id="target">
+        <li>HTML</li>
+        <li>CSS</li>
+    </ul>
+
+    <ul>
+        <li>123</li>
+        <li>456</li>
+        <li id="target2">789</li>
+    </ul>
+
+    <h2>jQuery api</h2>
+    <div class="target3" id="target31">
+        content1
+    </div>
+    <div class="target3" id="target32">
+        content2
+    </div>
+    <div id="source">source</div>
+    <input type="button" value="remove content1" id="btn1" />
+    <input type="button" value="empty content2" id="btn2" />
+    <input type="button" value="replaceAll target31" id="btn3" />
+    <input type="button" value="replaceWith target32" id="btn4" />
+    <input type="button" value="clone replaceAll" id="btn5" />
+    <input type="button" value="clone replaceWith" id="btn6" />
+    <input type="button" value="move by append" id="btn7" />
+
+    <h2>문자열로 노드 제어</h2>
+    <ul id="target5">
+        <li>html</li>
+        <li>css</li>
+    </ul>
+    <input type="button" value="innerHTML get" onclick="getInnerHTML();" />
+    <input type="button" value="innerHTML set" onclick="setInnerHTML();" /><br>
+    <input type="button" value="outerHTML get" onclick="getOuterHTML();" />
+    <input type="button" value="outerHTML set" onclick="setOuterHTML();" /><br>
+    <input type="button" value="innerText get" onclick="getInnerText();" />
+    <input type="button" value="innerText set" onclick="setInnerText();" /><br>
+    <input type="button" value="insertAdjacentHTML beforebegin" onclick="beforebegin();" />
+    <input type="button" value="insertAdjacentHTML afterbegin" onclick="afterbegin();" />
+    <input type="button" value="insertAdjacentHTML beforeend" onclick="beforeend();" />
+    <input type="button" value="insertAdjacentHTML afterend" onclick="afterend();" />
+    <script>
+        // 1. 관계
+        var start = document.getElementById("start");
+        /* start.firstChild // #text - body태그와 ul태그 사이 공백과 줄바꿈이 firstChild
+            이도 엄연히 Node를 상속한 Text 객체(Text < CharacterData < Node)
+            start.firstChild.nextSibling // <ul>..</ul> 동일 레벨의 다른 객체
+            HTML문서의 모든 구성요소는 Node를 상속받고, Node 프로퍼티로 이를 찾아낼 수 있음
+            
+            start.childNodes; // NodeList(5) [text, ul, text, script, text]
+            start.childNodes[1] // <ul>​…​</ul>​
+
+        // Node.childNodes // 자식 노드 유사 배열
+        // Node.firstChild // 첫번째 자식 노드
+        // Node.lastChild // 마지막 자식 노드
+        // Node.nextSibling // 다음 형제(동일 레벨) 노드
+        // Node.previousSibling // 이전 형제 노드
+        */
+
+        // 2. 종류
+        /*  -- Node.nodeType // 노드 타입 - 선택한 노드가 어떤 타입인지 판단
+            for(var name in Node){
+               console.log(name, Node[name]);
+            }
+            ELEMENT_NODE 1          // 엘리먼트 노드
+            ATTRIBUTE_NODE 2        // 속성 - element.attributes > 속성 유사배열 
+            TEXT_NODE 3             // 텍스트 노드 Node.TEXT_NODE
+            COMMENT_NODE 8          // 주석
+            DOCUMENT_NODE 9         // 문서 전체
+
+            start.nodeType // 1 <body>
+            start.firstChild.nodeType // 3 #text
+            document.nodeType // 9 
+            start.firstChild.nodeType === 3 // true
+            start.firstChild.nodeType === Node.TEXT_NODE // true
+
+            -- Node.nodeName // 노드 이름 
+            start.firstChild.nextSibling.nodeName; // "UL"
+        */
+        //    function traverse(target, callback){ // 두번째 인자는, 함수 실행 시 내부에서 실행(호출)되는 또 다른 함수 - 콜백
+        //     if(target.nodeType === Node.ELEMENT_NODE){
+        //         if(target.nodeName === 'A'){
+        //             callback(target); // 두번째 인자인 매개변수(함수)의 실행
+        //         }
+        //         var c = target.childNodes;
+        //         for(var i=0; i < c.length; i++){
+        //             traverse(c[i], callback); // 재귀
+        //         }
+        //     }
+        //    }
+
+        //    traverse(document.getElementById("start"), function(elem){
+        //        console.log(elem);
+        //     //    if(elem.nodeName === "A"){
+        //     //        elem.style.color = "blue";
+        //     //    }
+        //    });
+
+       // 3. 변경
+       /* element를 만드는 역할은 Node가 아닌, document에 있음
+        appendChild(child) 하위 노드로 추가(제일 끝)
+        insertBefore(newElement, referenceElement)
+        removeChild(child) 지우려는 요소의 부모 객체에서 호출해야, 삭제 대상도 알아야하고, 부모도 알아야함.
+        */
+       // -- 1) 추가
+       var target = document.getElementById("target");
+       var li = document.createElement("li"); // <li>..</li> 객체 생성
+       var text = document.createTextNode("JavaScript123"); // 문자열 객체 생성
+       li.appendChild(text); // <li>JavaScript123</li> 완성, 이건 또 노드 API로 하는것
+       target.appendChild(li); // LI 노드의 제일 끝에 추가하기
+       
+       var li2 = document.createElement("li");
+       var text2 = document.createTextNode("testset");
+       li2.appendChild(text2);
+       target.insertBefore(li2, target.firstChild); // (무엇, 어디앞에) 제일 앞, 또는 중간에 끼워넣기
+        // -- 2) 삭제
+       var t = document.getElementById("target2");
+        //    t.parentNode.removeChild(t); // 삭제할 요소의 부모의 프로퍼티에 자신을 던져..
+        // -- 3) 변경
+        // 교체하려는 element 먼저 만들고, 바꾸기
+        var a = document.createElement("a");
+        a.setAttribute('href','http://naver.com');
+        a.appendChild(document.createTextNode("네이버"));
+        t.replaceChild(a,t.firstChild); // (뭘로, 어디를)
+
+
+        // 4. jQuery
+        // $('.target3').before('<div>before</div>'); // sibling
+        // $('.target3').after('<div>after</div>'); // sibling
+        // $('.target3').prepend('<div>prepend</div>'); // child
+        // $('.target3').append('<div>append</div>'); // child
+        $('#btn1').click(function(){
+            $('#target31').remove(); // 선택한 엘리먼트 제거
+        });
+        $('#btn2').click(function(){
+            $('#target32').empty(); // 선택한 엘리먼트의 텍스트 노드 제거
+        });
+        $('#btn3').click(function(){
+            $('<div>replaceAll</div>').replaceAll('#target31'); // target31을 통째로 바꿈
+        });
+        $('#btn4').click(function(){
+            $('#target32').replaceWith('<div>replaceWith</div>'); // target32를 통째로 바꿈
+        });
+        // 복사
+        $('#btn5').click(function(){
+            $('#source').clone().replaceAll('#target31'); // source를 복사해서 교체
+            // $('#source').replaceAll('#target31'); // source가 target31을 지우고, 그 자리로 이동
+        });
+        $('#btn6').click(function(){
+            $('#target32').replaceWith($('#source').clone()); // source를 복사해서 교체
+            // $('#target32').replaceWith($('#source')); 
+            // 위 source가 다시 target32를 지우고, 그 자리로 이동
+        });
+        // 이동
+        $('#btn7').click(function(){
+            $('#target31').append($('#source'));
+            // 인자로 특정 노드를 객체를 전달, target31의 child로 이동
+        });
+
+
+
+        // 5. 문자열로 노드 제어
+        function getInnerHTML(){
+            var target5 = document.getElementById('target5');
+            alert(target5.innerHTML); // child 전부 HTML 가져오기
+        }
+        function setInnerHTML(){
+            var target5 = document.getElementById('target5');
+            target5.innerHTML = "<li>JS Core</li><li>BOM</li>"; 
+            // child 전부 HTML 교체, 파싱되어 처리
+        }
+        function getOuterHTML(){
+            var target5 = document.getElementById('target5');
+            alert(target5.outerHTML); // 자기자신 포함 전부 HTML 가져오기
+        }
+        function setOuterHTML(){
+            var target5 = document.getElementById('target5');
+            target5.outerHTML = "<ol><li>JS Core</li><li>DOM</li>"; // 자기자신 포함 전부 HTML 교체
+        }
+        function getInnerText(){
+            var target5 = document.getElementById('target5');
+            alert(target5.innerText);
+        }
+        function setInnerText(){
+            var target5 = document.getElementById('target5');
+            target5.innerText = "<li>JS Core</li><li>BOM</li>";
+        }
+        function beforebegin(){
+            var target5 = document.getElementById('target5');
+            target5.insertAdjacentHTML('beforebegin','<h3>Client Side</h3>');
+        }
+        function afterbegin(){
+            var target5 = document.getElementById('target5');
+            target5.insertAdjacentHTML('afterbegin','<li>After Begin</li>');
+        }
+        function beforeend(){
+            var target5 = document.getElementById('target5');
+            target5.insertAdjacentHTML('beforeend','<li>before End</li>');
+        }
+        function afterend(){
+            var target5 = document.getElementById('target5');
+            target5.insertAdjacentHTML('afterend','<h3>Server Side</h3>');
+        }
+    </script>
 </body>
 </html>

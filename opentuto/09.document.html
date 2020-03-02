@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Document</title>
+</head>
+<body>
+    <p>HTML 문서 전체를 대표하는 객체</p>
+    <ul>
+        <li>노드 생성 - document.createElement('li');</li>
+        <li>문서 정보 - title, URL, referrer, lastModified.. </li>
+    </ul>
+    <script>
+        console.log(document.childNodes);
+        console.log(document.childNodes[0]); // <!DOCTYPE html>
+        console.log(document.childNodes[1]); // <html>..</html>
+        console.log(document.title); // HTML Document
+    </script>
+</body>
+</html>

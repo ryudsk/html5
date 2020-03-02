@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문서의기하학적특성</title>
+    <style>
+        body { padding:0; margin:0; }
+        /* 1. getBoundingClientRect() */
+        /* #target { width:100px; height:100px; padding:50px; margin:50px; border:50px solid blue} */
+        /* 2. viewport */
+        #target { width:100px; height:2000px; padding:50px; margin:50px; border:50px solid blue}
+        div { border:50px solid blue; padding:50px; margin:50px;}
+    </style>
+</head>
+<body>
+    <input type="button" value="scrollBtn" id="scrollBtn" />
+    <div>
+        <div id="target">
+            Coding;
+        </div>
+    </div>
+    <script>
+        var t = document.getElementById("target");
+        console.log(t.getBoundingClientRect());
+        console.log(t.offsetParent); // 기준 객체 
+        console.log(t.clientWidth, t.clientHeight, t.clientTop, t.clientLeft); // 200 200 50 50
+        // 1. getBoundingClientRect
+        // DOMRect {x: 50, y: 50, width: 300, height: 300, top: 50, …}
+        // x: 50 - position
+        // y: 50
+        // width: 300 - contents + padding + border
+        // height: 300
+        // top: 50 - margin
+        // right: 350 - margin + width
+        // bottom: 350
+        // left: 50 - margin
+        
+        // 2. viewport
+        // 문서의 크기, 뷰포트의 좌표
+        // setInterval(function(){
+        //     console.log('getBoundingClientRect : ', t.getBoundingClientRect().top, 'pageYOffset : ', window.pageYOffset);
+        //     // getBoundingClientRect - 뷰 포트 기준 좌표
+        //     // window.pageYOffset - 스크롤 한 크기
+        //     // getBoundingClientRect.top + pageYOffset - body 기준 element 좌표
+        // },2000);
+
+        // 3. scroll
+        document.getElementById("scrollBtn").addEventListener('click',function(){
+            window.scrollTo(0,1000); // x:0, y:1000 스크롤 이동
+        });
+
+        // 4. screen size
+        console.log("window.innerWidth : ",window.innerWidth, "window.innerHeight : ",window.innerHeight); // viewport size
+        console.log("screen.width: ",screen.width,"screen.height: ",screen.height); // 모니터 해상도
+    </script>
+</body>
+</html>
