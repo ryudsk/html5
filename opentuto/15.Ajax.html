@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax</title>
+</head>
+<body>
+    <h2>XMLHttpRequest</h2>
+    <h3>GET</h3>
+    <p>time: <span id="time"></span></p>
+    <input type="button" id="execute" value="execute" />
+    <script>
+        document.getElementById("execute").addEventListener('click',function(event){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET','date.jsp');
+            // form의 method, action이 xhr.open
+            // form은 page를 reload
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    document.querySelector('#time').innerHTML = xhr.responseText;
+                    // responseText, 서버 역할을 하는 페이지의 텍스트 값
+                }
+            }
+            xhr.send();
+        });
+    </script>
+
+    <h3>POST</h3>
+    <p>time: <span id="time2"></span></p>
+    <select id="timezone">
+        <option value="Asia/Seoul">asia/seoul</option>
+        <option value="America/New_York">america/new york</option>
+    </select>
+    <select id="format">
+        <option value="yyyy/MM/dd a hh:mm:ss">yyyy/MM/dd a hh:mm:ss</option>
+        <option value="yyyy-MM-dd">yyyy-MM-dd</option>
+    </select>
+    <input type="button" id="execute2" value="execute" />
+    <script>
+        document.getElementById("execute2").addEventListener('click',function(event){
+           var xhr2 = new XMLHttpRequest();
+           xhr2.open('POST','date.jsp');
+           xhr2.onreadystatechange = function(){
+               if(xhr2.readyState === 4 && xhr2.status === 200) {
+                  document.querySelector("#time2").innerHTML = xhr2.responseText;
+               }
+           }
+           xhr2.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+           var data = '';
+           data += "timezone="+document.getElementById("timezone").value;
+           data += "&format="+document.getELementById("format").value;
+           xhr2.send(data);
+        });
+    </script>
+</body>
+</html>

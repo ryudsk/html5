@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQueryEvent</title>
+    <script src="jquery-3.4.1.js"></script>
+</head>
+<body>
+    <h2>jQuery Event</h2>
+    <input type="button" id="pure" value="pure" />
+    <input type="button" id="jquery" value="jQuery" />
+    <script>
+        var t = document.getElementById("pure");
+        t.addEventListener('click',function(event){
+            alert('pure');
+        });
+        // jQuery 사용
+        $("#jquery").on('click',function(event){
+            alert('jQuery');
+        });
+    </script>
+
+    <h3>jQuery - on, off API</h3>
+    <p>.on( events [, selector ] [, data ], handler(eventObject) )</p>
+    <ul>
+        <li><a href="#">HTML</a></li>
+        <li><a href="#">CSS</a></li>
+        <li><a href="#">JavaScript</a></li>
+    </ul>
+    <input type="text" id="target">
+    <input type="button" value="remove" id="remove">
+    <p id="status"></p>
+    <script>
+        // 1. selector - 필터링 기능
+        $('ul').on('click','a, li', function(event){ //ul이 아닌, a와 li에 클릭 이벤트 핸들러 설치
+            console.log(this.tagName); // this는 클릭한 a 또는 li
+        });
+        // 2. late binding, $('body').on() 뒤에 나오는 엘리먼트에도 이벤트를 달 수 있음
+        // 3. 다중 바인딩
+        // 1) event type 나열
+        // $('#target').on('focus blur', function(e){ //focus, blur 이벤트 타입 동시 등록
+        //     $('#status').html(e.type);
+        // });
+        // 2) 객체 전달
+        // var handler = function(e){$('#status').html(e.type)};
+        // $('#target').on({
+        //     'focus':handler,
+        //     'blur':handler
+
+        // })
+        // 3) 체이닝
+        // var handler = function(e){$('#status').html(e.type)};
+        // $('#target').on('focus',handler).on('blur',handler);
+
+        // 4. 이벤트 제거
+        var handler = function(e){
+            $('#status').text(e.type + Math.random());
+        };
+        $('#target').on('focus blur', handler); 
+        $('#target').on('focus',function(e){ console.log(1) }); // 이벤트 핸들러 추가
+        $('#remove').on('click',function(e){
+            // $('#target').off('focus'); // focus 타입 이벤트 삭제
+            // $('#target').off('focus', handler); // focus 타입 + handler를 갖는 이벤트만 삭제
+            $('#target').off('focus blur'); // 모든 이벤트 삭제
+        });
+    </script>
+</body>
+</html>

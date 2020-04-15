@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Ajax</title>
+    <script src="jquery-3.4.1.js"></script>
+</head>
+<body>
+    <form>
+        <select name="timezone">
+            <option value="Asia/Seoul">asia/seoul</option>
+            <option value="America/New_York">america/new york</option>
+        </select>
+        <select name="format">
+            <option value="yyyy/MM/dd a hh:mm:ss">yyyy/MM/dd a hh:mm:ss</option>
+            <option value="yyyy-MM-dd">yyyy-MM-dd</option>
+        </select>
+    </form>
+    <p>time: <span id="time"></span></p>
+    <p id="timezones"></p>
+    <input type="button" id="execute" value="execute" />
+    <input type="button" id="execute1" value="execute1" />
+    <input type="button" id="execute2" value="execute2" />
+    <input type="button" id="execute3" value="execute3" />
+    <script>
+        // 년월일시분초
+        $('#execute').click(function(){
+            $.ajax({
+                url:'date.jsp',
+                success:function(data){
+                    $('#time').text(data);
+                    // $('#time').append(data);
+                }
+            });
+        });
+        // form - timezone, format value 넘겨서 년월일시분초
+        $('#execute1').click(function(){
+            $.ajax({
+                url:'date1.jsp',
+                type:'post',
+                data:$('form').serialize(),
+                success:function(data){
+                    $('#time').html(data);
+                }
+            });
+        });
+        // json string return 
+        $('#execute2').click(function(){
+            $.ajax({
+                url:'date2.jsp',
+                dataType:'json',
+                success:function(data){
+                    var str = '';
+                    for(var name in data){
+                        str += '<li>'+data[name]+'</li>';
+                    }
+                    $('#timezones').html('<ul>'+str+'</ul>');
+                }
+            });
+        });
+        // json request and return 
+        var obj = {};
+        $.each($('form').serializeArray(),function(){
+            obj[this.name] = this.value;
+        });
+        $('#execute3').click(function(){
+            $.ajax({
+               url:'date3.jsp',
+               type:'post',
+               data: JSON.stringify(obj),
+               dataType:'json', 
+               success:function(data){
+                    var str = '';
+                    for(var name in data){
+                        str += '<li>'+data[name]+'</li>';
+                    }
+                    $('#timezones').html('<ul>'+str+'</ul>');
+                }
+            })
+        });
+    </script>  
+</body>
+</html>

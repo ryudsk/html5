@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON</title>
+</head>
+<body>
+    <h2>JSON.parse, JSON,stringify</h2>
+    <script>
+        var info = '{\
+            "font-face": "Inconsolata",\
+            "font-size": 30,\
+            "ignore_packages": \
+            [\
+            ],\
+            "line_numbers": false\
+        }';
+        console.log(info);
+        var infoobj = JSON.parse(info); // text > JSON
+        console.log(infoobj);
+        for(var name in infoobj){
+            console.log(name,infoobj[name]);
+        }
+        var infostr = JSON.stringify(infoobj); // JSON > text
+        console.log(infostr);
+
+    </script>
+
+    <h2>Ajax와 JSON</h2>
+    <p>JSON - 배열 또는 객체 상태 그대로, 데이터 전달이 가능하도록, 서로 다른 언어지만, 배열과 객체의 전달 가능</p>
+    <p id="timezones"></p>
+    <input type="button" id="execute" value="execute" />
+    <script>
+        document.querySelector('#execute').addEventListener('click',function(event){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET','date2.jsp');
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    var _tzs = xhr.responseText;
+                    // 배열을 문자열로 바꿔서 보낸걸 받아 다시 객체(배열)로 전환
+                    // var tzs = _tzs.split(','); 
+
+                    // JSON.parse 사용
+                    var tzs = JSON.parse(_tzs);
+
+                    var _str = '';
+                    for ( var i in tzs ){
+                        _str += '<li>'+tzs[i]+'</li>';
+                    }
+                    _str = '<ul>'+_str+'</ul>';
+
+                    document.querySelector('#timezones').innerHTML = _str;
+                }
+            };
+            xhr.send();
+        });
+    </script>
+
+    <h2>서버로 전달</h2>
+    <p>time : <span id="time3"></span></p>
+    <select id="timezone">
+        <option value="Asia/Seoul">asia/seoul</option>
+        <option value="America/New_York">america/new york</option>
+    </select>
+    <select id="format">
+        <option value="yyyy/MM/dd a hh:mm:ss">yyyy/MM/dd a hh:mm:ss</option>
+        <option value="yyyy-MM-dd">yyyy-MM-dd</option>
+    </select>
+    <button type="button" id="execute3" value="execute">
+    <script>
+        document.querySelector('#execute3').addEventListener('click',function(event){
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST','date3.jsp');
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    document.querySelector('#time3').innerHTML = xhr.responseText;
+                }
+            }
+
+            var data = new Object();
+            data.timezone = document.getElementById('timezone').value;
+            data.format = document.getElementById('format').value;
+            xhr.setRequestHeader("Content-Type","applicaton/json");
+            xhr.send(JSON.stringify(data));
+        });
+    </script>
+</body>
+</html>

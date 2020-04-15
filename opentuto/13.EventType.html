@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Type</title>
+    <style>
+        #target5 { 
+            width:100px; height:100px;
+            background-color:cadetblue;
+        }
+        table { 
+            border-collapse: collapse; 
+            margin: 10px;
+            width: 200px;
+            float: left;
+        }
+        td, th { border: 1px solid gray; }
+    </style>
+</head>
+<body>
+    <h2>폼</h2>
+    <h3>submit</h3>
+    <p>폼의 정보를 서버 전달 - form</p>
+    <form id="target" action="result.html">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" />
+        <input type="submit" />
+    </form>
+    <script>
+        document.getElementById("target").addEventListener('submit',function(event){
+             if(document.getElementById("name").value.length === 0){
+                 alert("Name 필드의 값이 누락 되었습니다.");
+                 event.preventDefault();
+             }
+        });
+     </script>
+
+    <h3>change</h3>
+    <p>폼 컨트롤의 값이 변경 되었을 때 - input(text,radio,checkbox), textarea, select tag</p>
+    <p id="result"></p>
+    <input id="target2" type="text" />
+    <script>
+        document.getElementById("target2").addEventListener('change',function(event){
+            document.getElementById("result").innerHTML = event.target.value;
+        });
+    </script>
+
+    <h3>blur, focus</h3>
+    <p>엘리먼트에 포커스가 생겼을 때(focus), 사라졌을 때(blur)<br>
+    - 화면을 채우는 거의 모든 태그에서 발생</p>
+    <input id="target3" type="text" />
+    <script>
+        var t = document.getElementById("target3");
+        t.addEventListener('blur', function(event){
+            console.log('blur');
+        });
+        t.addEventListener('focus', function(event){
+            console.log('focus');
+        });
+    </script>
+
+    <h2>문서 로딩</h2>
+    <h3>load, DOMContentLoaded</h3>
+    <p>웹페이지의 모든 요소의 처리가 끝난 후 호출되는 이벤트: window.onload<br>
+       문서 내 HTML 태그의 준비가 완료되면 발생하는 이벤트: DOMContentLoaded
+    </p>
+    <script>
+        //  - property
+        // console.log(document.getElementById("target4")); // null
+        // window.onload = function(){
+        //     console.log(document.getElementById("target4"));
+        // };
+        //  - addEventListener
+        // window.addEventListener('load', function(){ // 페이지 완성(모든 리소스의 다운로드 까지)
+        //     console.log(document.getElementById("target4")); // 찾기
+        // })
+        // - DOMContentLoaded : 모든 HTML 태그가 준비가 되면 발생하는 이벤트
+        window.addEventListener('DOMContentLoaded', function(){ // 페이지 완성(모든 리소스의 다운로드 까지)
+            console.log(document.getElementById("target4")); // 찾기
+        })        
+    </script>
+    <p id="target4">Hello</p>
+
+    <h2>마우스</h2>
+    <p>이벤트 타입, 키보드와 조합, 포인터 위치</p>
+    <div id="target5"></div>
+    <table>
+        <thead>
+            <th>event type</th>
+            <th>info</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>click</td>
+                <td id="elem_click"></td>
+            </tr>
+            <tr>
+                <td>dbclick</td>
+                <td id="elem_dbclick"></td>
+            </tr>
+            <tr>
+                <td>mousedown</td>
+                <td id="elem_mousedown"></td>
+            </tr>
+            <tr>
+                <td>mouseup</td>
+                <td id="elem_mouseup"></td>
+            </tr>
+            <tr>
+                <td>mousemove</td>
+                <td id="elem_mousemove"></td>
+            </tr>
+            <tr>
+                <td>mouseover</td>
+                <td id="elem_mouseover"></td>
+            </tr>
+            <tr>
+                <td>mouseout</td>
+                <td id="elem_mouseout"></td>
+            </tr>
+            <tr>
+                <td>contextmenu</td>
+                <td id="elem_contextmenu"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+            <th>key</th>
+            <th>info</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>event.altKey</td>
+                <td id="elem_altkey"></td>
+            </tr>
+            <tr>
+                <td>event.ctrlKey</td>
+                <td id="elem_ctrlkey"></td>
+            </tr>
+            <tr>
+                <td>event.shiftKey</td>
+                <td id="elem_shiftkey"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+            <th>position</th>
+            <th>info</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>event.clientX</td>
+                <td id="elem_clientx"></td>
+            </tr>
+            <tr>
+                <td>event.clientY</td>
+                <td id="elem_clienty"></td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        var t = document.getElementById("target5");
+        function handler(event){
+            var time = new Date().getMilliseconds();
+            document.getElementById("elem_"+event.type).innerHTML = time;
+            document.getElementById("elem_clientx").innerHTML = event.clientX;
+            document.getElementById("elem_clienty").innerHTML = event.clientY;
+
+            if(event.altKey){
+                document.getElementById("elem_altkey").innerHTML = time;
+            }
+            if(event.ctrlKey){
+                document.getElementById("elem_ctrlkey").innerHTML = time;
+            }
+            if(event.shiftKey){
+                document.getElementById("elem_shiftkey").innerHTML = time;
+            }
+
+
+        }
+        t.addEventListener('click',handler);
+        t.addEventListener('dbclick',handler);
+        t.addEventListener('mousedown',handler);
+        t.addEventListener('mouseup',handler);
+        t.addEventListener('mousemove',handler);
+        t.addEventListener('mouseover',handler);
+        t.addEventListener('mouseout',handler);
+        t.addEventListener('contextmenu',handler);
+    </script>
+</body>
+</html>

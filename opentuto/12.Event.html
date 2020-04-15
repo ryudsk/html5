@@ -6,6 +6,151 @@
     <title>Event</title>
 </head>
 <body>
+    <h2>이벤트 프로그래밍</h2>
+    <ul>
+        <li>이벤트 타겟, 이벤트 대상 - 버튼 태그 등</li>
+        <li>이벤트 타입 - onclick, onchange</li>
+        <li>이벤트 핸들러 - 이벤트 발생 시 실행할 코드</li>
+    </ul>
+    <input type="button" onclick="window.open('bom.html')" value="window.open('bom.html')" />
+    <input type="text" onchange="alert(this.value)" />
     
+    <h2>이벤트 등록</h2>
+    <p>이벤트 타겟(대상)에 이벤트 핸들러를 등록하는 방법 3가지</p>
+
+    <h3>인라인</h3>
+    <p>이벤트 대상의 tag 속성(이벤트 타입)에 지정하는 것<br>이벤트 핸들러의 this는? 이벤트가 동작 중인 엘리먼트를 가리키는 것</p>
+    <input type="button" onclick="alert('Hello world, '+this.value)" value="버튼" />
+
+    <h3>프로퍼티 리스너</h3>
+    <p>이벤트 대상에 해당하는 객체의 프로퍼티에 지정하는 것</p>
+    <input type="button" id="btn" value="버튼" />
+    <script>
+        var t = document.getElementById("btn");
+        t.onclick = function(event){       // 이벤트 핸들러는 첫번째 파라미터로 생성된 이벤트 객체를 전달 받아야 함
+            // alert('Hello world, '+event.target.value); // 프로퍼티 target - 이벤트 타겟(대상)
+            console.dir(event); // 이벤트가 실행된 시점에서 여러가지 정보를 담는 객체
+        }
+        // 핸들러는 마지막 1개만 가능
+    </script>
+
+    <h3>addEventListener()</h3>
+    <p>권장, 하나의 대상에 둘 이상의 핸들러 지정 가능</p>
+    <input type="button" id="btn1" value="버튼" />
+    <script>
+        var t = document.getElementById("btn1");
+        t.addEventListener('click', function(event){
+            alert('Hello world '+event.target.value);
+        });
+        t.addEventListener('click', function(event){
+            alert(2);
+        })
+    </script>
+
+    <p>하나의 리스너(핸들러)를 여러 타겟에 지정해보기</p>
+    <input type="button" id="t1" value="1" />
+    <input type="button" id="t2" value="2" />
+    <script>
+        var t1 = document.getElementById("t1");
+        var t2 = document.getElementById("t2");
+        function btn_listener(event) {
+            switch(event.target.id){
+                case 't1': alert('1'); break;
+                case 't2': alert('2'); break;
+            }
+        }
+        t1.addEventListener('click',btn_listener);
+        t2.addEventListener('click',btn_listener);
+    </script>
+
+    <h2>이벤트 전파(버블링, 캡처링)</h2>
+    <p>중첩된 태그들에 이벤트가 모두 등록되어 있다면<br>
+    캡처링: 부모 > 자식 순으로 이벤트 호출<br>
+    버블링: 자식 > 부모 순으로 이벤트 호출</p>
+    <h3>캡처링(Capturing)</h3>
+    <fieldset class="capturing">
+        <legend>event propagation</legend>
+        <input type="button" id="t3" value="t3" />
+    </fieldset>
+    <h3>버블링(Bubbleing)</h3>
+    <fieldset class="bubbling">
+        <legend>event propagation</legend>
+        <input type="button" id="t4" value="t4" />
+    </fieldset>
+    <script>
+        var handler = function(event){
+            var phases = [ 'capturing', 'target', 'bubbling' ];
+            console.log(event.target.nodeName, this.nodeName, phases[event.eventPhase-1]);
+        }
+        function stopHandler(event) {
+            var phases = [ 'capturing', 'target', 'bubbling' ];
+            console.log(event.target.nodeName, this.nodeName, phases[event.eventPhase-1]);
+            event.stopPropagation();
+        }
+        /*
+            event.target.nodeName - 직접 클릭한 엘리먼트
+            this.nodeName - 호출된 이벤트 핸들러가 설치된 엘리먼트
+            phases[event.eventPhase-1] - eventPhase ? capturing > 1, bubbling > 3, 가장 말단 핸들러 > 2
+        */
+        document.getElementById("t3").addEventListener('click',handler,true); // true - capturing, default false - bubbling
+        document.getElementById("t4").addEventListener('click',handler,false);
+        document.querySelector('fieldset.capturing').addEventListener('click',handler,true);
+        document.querySelector('fieldset.bubbling').addEventListener('click',stopHandler,false);
+        // document.querySelector('fieldset.bubbling').addEventListener('click',handler,false);
+        // document.querySelector('body').addEventListener('click',handler,true);
+        // document.querySelector('body').addEventListener('click',handler,false);
+        // document.querySelector('html').addEventListener('click',handler,true);
+        // document.querySelector('html').addEventListener('click',handler,false);
+        /*  결과 
+            INPUT HTML capturing
+            INPUT BODY capturing
+            INPUT FIELDSET capturing
+            INPUT INPUT target
+        */
+    </script>
+
+    <h2>기본 동작의 취소</h2>
+    <p>text box의 텍스트 입력, submit 버튼의 데이터 전송, a tag 클릭 시 href URL로 이동 등 - 브라우저가 갖춘 기본 동작 - 이것을 취소하는 방법</p>
+    <h3>inline 방식 - return false</h3>
+    <p>
+        <label>prevent event on</label>
+        <input id="prevent" type="checkbox" name="eventprevent" value="on" />
+    </p>
+    <p>
+        <!-- <a href="naver.com" onclick="if(document.getElementById('prevent').checked) return false;">LINK</a> -->
+        <a href="naver.com">LINK</a>
+    </p>
+    <p>
+        <!-- <form action="naver.com" onsubmit="if(document.getElementById('prevent').checked) return false;"> -->
+        <form action="naver.com">
+            <input type="submit" />
+        </form>
+    </p>
+
+    <h3>property 방식</h3>
+    <p>inline 방식과 동일, script로 분류한 것 뿐</p>
+    <script>
+        // document.querySelector('a').onclick = function(event){
+        //     if(document.getElementById('prevent').checked)
+        //         return false;
+        // }
+        // document.querySelector('form').onsubmit = function(event){
+        //     if(document.getElementById('prevent').checked)
+        //         return false;
+        // }
+    </script>
+
+    <h3>addEventListener 방식</h3>
+    <p>addEventListener로 핸들러를 설치시, return 값이 아닌, 인자로 전달된 객체의 preventDefault()호출</p>
+    <script>
+        document.querySelector('a').addEventListener('click',function(event){
+            if(document.getElementById('prevent').checked)
+                event.preventDefault();
+        });
+        document.querySelector('form').addEventListener('click',function(event){
+            if(document.getElementById('prevent').checked)
+                event.preventDefault();
+        });
+    </script>
 </body>
 </html>
