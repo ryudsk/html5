@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="utf-8">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="./js/jquery-3.4.1.js"></script>
 </head>
+
 <body>
     <input type="text" id="first">
     <select id="op">
@@ -17,28 +19,82 @@
     <input type="text" id="second">
     <button id="execute">=</button>
     <span id="result"></span>
+    <button id="clear">C</button>
 </body>
 <script>
-    $('#execute').on('click',function(e){
-        var first = $('#first').val();
-        var second = $('#second').val();
+    function clearElement() {
+        $('#op').val("+");
+        $('#first').val("");
+        $('#second').val("");
+        $('#result').text("");
+    };
+
+    $('#clear').on('click', clearElement);
+    $('#execute').on('click', function (e) {
+        var op = $('#op');
+        var first = $('#first');
+        var second = $('#second');
         var result = '';
-        switch($('#op').val()){
-            case '+':
-                result = first + second;
-                break;
-            case '-':
-                result = first - second;
-                break;
-            case '/':
-                result = first / second;
-                break;
-            case '*':
-                result = first * second;
-                break;
+
+        if (valueCheck(first) && valueCheck(second)) {
+            if (checkDivideByZero(op.val(), Number(second.val()))) {
+                exec(op.val(), Number(first.val()), Number(second.val()));
+                $('#result').html(result);
+            } else {
+                $('#result').html(result);
+            }
         }
-        $('#result').html(result);
+        
+// next
+/* 모든 el을 돌면서 널 체크
+*/
+        function valueCheck(value) {
+            if (Boolean(value.val())) {
+                allowPoint(value);
+                return true;
+            } else {
+                alertPoint(value);
+                return false;
+            }
+        }
+
+        function checkDivideByZero(opValue, secondValue) {
+            if (opValue == "/" && secondValue === 0) {
+                result = "0으로 나눌 수 없음";
+                alertPoint(second);
+                return false;
+            } else {
+                return true;
+            }
+        }
+        
+        function alertPoint(el) {
+            $(el).css("border", "1px solid red");
+        }
+
+        function allowPoint(el) {
+            $(el).removeAttr("style");
+        }
+        
+        function exec(opValue, firstValue, secondValue) {
+            switch (opValue) {
+                case '+':
+                    result = firstValue + secondValue;
+                    break;
+                case '-':
+                    result = firstValue - secondValue;
+                    break;
+                case '/':
+                    result = firstValue / secondValue;
+                    break;
+                case '*':
+                    result = firstValue * secondValue;
+                    break;
+            }
+        };
     });
 
+
 </script>
+
 </html>
