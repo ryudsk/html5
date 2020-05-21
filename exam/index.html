@@ -6,58 +6,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="./js/jquery-3.4.1.js"></script>
+    <style>
+        input {
+            text-align: right;
+        }
+    </style>
 </head>
 
 <body>
-    <input type="text" id="first">
+    <input type="text" id="first" value="0">
     <select id="op">
         <option value="+">+</option>
         <option value="-">-</option>
         <option value="/">/</option>
         <option value="*">*</option>
     </select>
-    <input type="text" id="second">
+    <input type="text" id="second" value="0">
     <button id="execute">=</button>
     <span id="result"></span>
     <button id="clear">C</button>
 </body>
 <script>
-    function clearElement() {
-        $('#op').val("+");
-        $('#first').val("");
-        $('#second').val("");
-        $('#result').text("");
-    };
-
-    $('#clear').on('click', clearElement);
-    $('#execute').on('click', function (e) {
-        var op = $('#op');
-        var first = $('#first');
-        var second = $('#second');
-        var result = '';
-
-        if (valueCheck(first) && valueCheck(second)) {
-            if (checkDivideByZero(op.val(), Number(second.val()))) {
-                exec(op.val(), Number(first.val()), Number(second.val()));
-                $('#result').html(result);
+    // 키 입력 막기
+    function keyCheck(e) {
+        var key;
+        if (window.event) {
+            key = window.event.keyCode;
+        } else {
+            key = e.which;
+        }
+        // backspace(8), delete(46), tab(9), dot(190-keydown/46-keyup) 
+        var event;
+        if (key == 8 || key == 46 || key == 9 || key == 190) {
+            event = e || window.event;
+            if (typeof event.stopPropagation != "undefined") {
+                event.stopPropagation();
             } else {
-                $('#result').html(result);
+                event.cancelBubble = true;
+            }
+            return;
+        }
+        // if (key < 48 || (key > 57 && key < 96) || key > 105) { // 96 ~ 105 우측 숫자 키패드 
+        if (key < 48 || key > 57) { // e.shiftkey도 추가로 막으라고 하는데, 이유를 모르겠음
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
+        }
+    }
+
+    // 소수점 유효성 체크
+    function decimalPointCheck(obj, event) {
+        // 소수점으로 시작하면 소수점 앞 0 자동 입력
+        if (obj.val().indexOf(".") == 0) {
+            obj.val(obj.val().replace(".", "0."));
+        };
+        // 소수점은 1개만 허용, 이미 1개가 있다면 더이상 입력 금지
+        if (event.keyCode == 46 || event.keyCode == 190) {
+            if ((obj.val().match(/\./g) || []).length == 1) {
+                event.preventDefault();
             }
         }
-        
-// next
-/* 모든 el을 돌면서 널 체크
-*/
-        function valueCheck(value) {
-            if (Boolean(value.val())) {
-                allowPoint(value);
-                return true;
-            } else {
-                alertPoint(value);
-                return false;
+    }
+
+    // 최초 입력 시 0 2개 이상 금지
+    function zeroValueCheck(obj, event) {
+        if (obj.val().indexOf("0") == 0) {
+            if (event.keyCode == 48) {
+                event.preventDefault();
+            } 
+            if (event.keyCode != 46 && event.keyCode != 190) {
+                event.stopPropagation();
             }
         }
+    }
 
+    function valueCheckFocusOut(obj) {
+        // 값 없이 나가면 다시 기본값 0 넣기
+        if (obj.val() == "") {
+            obj.val("0");
+        }
+        // 소수점으로 끝내면 지우기
+        if (obj.val().lastIndexOf(".") == (obj.val().length - 1)) {
+            obj.val(obj.val().replace(".", ""));
+        }
+        // 0으로 끝내면 0이 아닌 숫자까지 지우기
+        // if 
+    }
+
+    // 기본값 클릭 시 지우기
+    $('#first').on("click", function () {
+        if ($(this).val().indexOf("0") == 0) {
+            $(this).val("");
+        }
+    });
+
+    // dot 반복을 막으려면 keypress
+    // 0. 을 바로 완성하려면 keyup
+    // 숫자 외 입력은 keydown으로 막기
+    // a key click -- keyup 만 있으면, 65-97이 동시에,, keydown도 있으면 65만 두번
+    $("#first").on("change keydown keyup keypress paste", function(event) {
+        keyCheck(event);
+        decimalPointCheck($(this), event);
+        zeroValueCheck($(this), event);
+    });
+
+    $("#first").on("focusout", function(event) {
+        valueCheckFocusOut($(this));
+    });
+
+    $("#second").on("change keydown keyup keypress paste", function(event) {
+        keyCheck(event);
+        decimalPointCheck($(this), event);
+        zeroValueCheck($(this), event);
+    });
+
+    // 초기화 버튼 클릭
+    $("#clear").on("click", function () {
+        $("#op").val("+");
+        $("#first").val("0").removeAttr("style");
+        $("#second").val("0").removeAttr("style");
+        $("#result").text("");
+    });
+
+    // 계산버튼 클릭
+    $("#execute").on("click", function () {
+        var op = $("#op");
+        var first = $("#first");
+        var second = $("#second");
+        var result = "";
+
+        // execute
+        if (checkDivideByZero(op.val(), Number(second.val()))) {
+            exec(op.val(), Number(first.val()), Number(second.val()));
+            $("#result").html(result);
+        } else {
+            $("#result").html(result);
+        }
+
+        // 0으로 나누기 금지
         function checkDivideByZero(opValue, secondValue) {
             if (opValue == "/" && secondValue === 0) {
                 result = "0으로 나눌 수 없음";
@@ -67,27 +151,25 @@
                 return true;
             }
         }
-        
+
+        // 경고 
         function alertPoint(el) {
             $(el).css("border", "1px solid red");
         }
 
-        function allowPoint(el) {
-            $(el).removeAttr("style");
-        }
-        
+        // 계산
         function exec(opValue, firstValue, secondValue) {
             switch (opValue) {
-                case '+':
+                case "+":
                     result = firstValue + secondValue;
                     break;
-                case '-':
+                case "-":
                     result = firstValue - secondValue;
                     break;
-                case '/':
+                case "/":
                     result = firstValue / secondValue;
                     break;
-                case '*':
+                case "*":
                     result = firstValue * secondValue;
                     break;
             }
