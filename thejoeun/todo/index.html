@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>toDo</title>
+</head>
+<body>
+    <div>
+        <label>To Do List</label>
+        <input type="text" id="todo-data" />
+        <button id="btn-add">ADD</button>
+    </div>
+    <div id="todo-list"></div>
+</body>
+<script>
+    const $todoData  = document.getElementById("todo-data");
+    const $todoList = document.getElementById("todo-list");   
+    const $btnAdd = document.getElementById("btn-add");
+    const todoListData = {};
+    const UNFINISHED = 0;
+    const FINISHED = 1;
+
+    // finished를 어떻게 붙이나
+    // 미완료, 완료를 나눠서 보여주기
+    // 수정, 삭제, 전체삭제, 완료 삭제 만들기
+    $btnAdd.addEventListener('click', btn_add_listener);
+
+    function btn_add_listener() {
+        $todoList.appendChild(new_todo($todoData.value));
+    }
+
+    function new_todo(data) {
+        const _todoId = Date.now();
+        const _todo = document.createElement("div");
+        const _fin = document.createElement("input");
+        
+        _todo.setAttribute("id", _todoId);
+        _fin.setAttribute("type","checkbox");
+        _fin.setAttribute("name",_todoId);
+        _todo.appendChild(document.createTextNode(data));
+        _todo.appendChild(_fin);
+
+        _fin.addEventListener('change',function(){
+            if(this.checked) {
+                console.log(this.name + 'checked');
+            } else {
+                console.log(this.name + 'Unchecked');
+            }
+        });
+
+        // todoListData.push({ [_todoId] : UNFINISHED });
+        todoListData[_todoId] = UNFINISHED;
+
+        return _todo;
+    }
+
+    // function new_todo_add_event() {
+    //     for(const todo of todoListData){
+    //         Object.keys(todo).forEach(e => {
+    //             const $todo = document.getElementById(e);
+    //             $todo.addEventListener('click')
+    //         });
+    //     }
+    // }
+
+    
+</script>
+</html>
