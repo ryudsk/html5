@@ -8,28 +8,74 @@
 <body>
     <div>
         <label>To Do List</label>
-        <input type="text" id="todo-data" />
-        <button id="btn-add">ADD</button>
+        <input type="text" id="todo-data-input" />
+        <button id="btn-add">New todo add</button>
+        <button id="btn-del">Finished todo del</button>
+        <button id="btn-hide">Finished hide</button>
+        <button id="btn-unhide">Finished Unhide</button>
     </div>
-    <div id="todo-list"></div>
+    <div id="todo-list-unfinished" style="border: 1px solid red;"></div>
+    <div id="todo-list-finished" style="border: 1px solid blue;"></div>
 </body>
 <script>
-    const $todoData  = document.getElementById("todo-data");
-    const $todoList = document.getElementById("todo-list");   
+    const $todoDataInput  = document.getElementById("todo-data-input");
     const $btnAdd = document.getElementById("btn-add");
+    const $btnDel = document.getElementById("btn-del");
+    const $btnHide = document.getElementById("btn-hide");
+    const $btnUnhide = document.getElementById("btn-unhide");
+    const $todoListUnfinished = document.getElementById("todo-list-unfinished");
+    const $todoListFinished = document.getElementById("todo-list-finished");
     const todoListData = {};
     const UNFINISHED = 0;
     const FINISHED = 1;
 
-    // finished를 어떻게 붙이나
+    const addEvent = function(){
+        $todoListUnfinished.appendChild(new_todo($todoDataInput.value));
+        $todoDataInput.value = "";
+    };
+    // 삭제
+    // $btnDel.addEventListener('click', function(){
+    //     for (const [key, value] of Object.entries(todoListData)) {
+    //         if(value === 1){
+    //             const $finishedTodo = document.getElementById(key);
+    //             $todoListFinished.removeChild($finishedTodo);
+    //         }
+    //     }
+    // });
+
+
     // 미완료, 완료를 나눠서 보여주기
     // 수정, 삭제, 전체삭제, 완료 삭제 만들기
-    $btnAdd.addEventListener('click', btn_add_listener);
 
-    function btn_add_listener() {
-        $todoList.appendChild(new_todo($todoData.value));
+    // 추가
+    $btnAdd.addEventListener('click', addEvent);
+    $todoDataInput.addEventListener('keydown', function(e){
+        if(e.keyCode == 13) addEvent();
+    });
+
+    // 숨기기
+    $btnHide.addEventListener('click', function(){
+        for (const [key, value] of Object.entries(todoListData)) {
+            if(value === 1){
+                document.getElementById(key).style.display = "none";
+            }
+        }
+    });
+
+    // 숨기기 취소
+    $btnUnhide.addEventListener('click', function(){
+        for (const [key, value] of Object.entries(todoListData)) {
+            if(value === 1){
+                document.getElementById(key).style.display = "";
+            }
+        }
+    });
+
+    function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
     }
 
+    // 추가, 체크 박스
     function new_todo(data) {
         const _todoId = Date.now();
         const _todo = document.createElement("div");
@@ -41,19 +87,26 @@
         _todo.appendChild(document.createTextNode(data));
         _todo.appendChild(_fin);
 
+        todoListData[_todoId] = UNFINISHED;
+        console.log(todoListData);
+
         _fin.addEventListener('change',function(){
+            const todoChange = document.getElementById(this.name);
             if(this.checked) {
-                console.log(this.name + 'checked');
+                todoListData[this.name] = FINISHED;
+                console.log(todoListData);
+                $todoListFinished.appendChild(todoChange);
             } else {
-                console.log(this.name + 'Unchecked');
+                todoListData[this.name] = UNFINISHED;
+                console.log(todoListData);
+                $todoListUnfinished.appendChild(todoChange);
             }
         });
 
-        // todoListData.push({ [_todoId] : UNFINISHED });
-        todoListData[_todoId] = UNFINISHED;
-
         return _todo;
     }
+
+    
 
     // function new_todo_add_event() {
     //     for(const todo of todoListData){
